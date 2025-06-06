@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Critical Thinking Workshops</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    
+    <!-- STYLE-->
+    
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      .fade-in {
+        animation: fadeIn 1.5s ease-in;
+      }
+      @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .testimonial {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        position: absolute;
+        width: 100%;
+      }
+      .testimonial.active {
+        opacity: 1;
+        position: relative;
+      }
+    </style>
+  </head>
+
+
+  <body class="bg-white text-gray-900 font-sans" x-data="{ open: false }">
+
+    <!-- Hamburger Menu -->
+    <div class="fixed top-4 right-4 z-50">
+      <button @click="open = !open" class="text-gray-900 focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+
+    
+    <!-- Sidebar Menu -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40" x-show="open" @click.away="open = false" x-transition.opacity></div>
+    <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-6 z-50 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }">
+      <nav class="space-y-4 text-lg">
+        <a href="#about" @click="open = false" class="block hover:text-blue-600">About</a>
+        <a href="#mission" @click="open = false" class="block hover:text-blue-600">Mission</a>
+        <a href="#trainings" @click="open = false" class="block hover:text-blue-600">Trainings</a>
+        <a href="#testimonials" @click="open = false" class="block hover:text-blue-600">Testimonials</a>
+        <a href="#projects" @click="open = false" class="block hover:text-blue-600">Projects</a>
+        <a href="#youtube" @click="open = false" class="block hover:text-blue-600">YouTube</a>
+        <a href="#contact" @click="open = false" class="block hover:text-blue-600">Contact</a>
+      </nav>
+    </div>
+
+    <!-- Hero Section 1: Fullscreen with Text -->
+    <section class="h-screen bg-cover bg-center flex items-center px-6 text-left" style="background-image: url('image1.jpg');">
+      <div class="max-w-xl text-white">
+        <h1 class="text-5xl font-bold leading-tight mb-4">My goal is to breach the gap.</h1>
+        <p class="text-xl mb-6">Between theory and practice. Between intuition and reason. Between ideas and action.</p>
+        <a href="#trainings" class="bg-green-800 hover:bg-green-900 text-white px-6 py-3 rounded-lg shadow transition">Explore Workshops</a>
+      </div>
+    </section>
+
+    <!-- Hero Section 2: Theory ↔ Practice -->
+    <section class="grid grid-cols-3 h-[80vh]">
+      <div class="bg-cover bg-center" style="background-image: url('image2.jpg');">
+        <div class="h-full w-full bg-black bg-opacity-30 flex items-center justify-center">
+          <h2 class="text-3xl text-white font-semibold">Theory</h2>
+        </div>
+      </div>
+      <div class="bg-gray-100 flex items-center justify-center">
+        <p class="text-center text-gray-700 text-xl italic max-w-xs">This is the space I work in — the bridge between thought and execution, between knowing and doing.</p>
+      </div>
+      <div class="bg-cover bg-center" style="background-image: url('image3.jpg');">
+        <div class="h-full w-full bg-black bg-opacity-30 flex items-center justify-center">
+          <h2 class="text-3xl text-white font-semibold">Practice</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="py-24 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-6">My Mission</h3>
+        <p class="text-xl">
+          To breach the gap between theory and practice. Between the hermetic world of academia and the real-world challenges of thinking and decision-making. Between fast, intuitive judgments and structured, rational reflection.
+        </p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 bg-gray-50">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+        <div>
+          <img src="mepic2.jpg" alt="Your Photo" class="rounded-2xl shadow-xl" />
+        </div>
+        <div>
+          <h3 class="text-3xl font-bold mb-4">Hi, I'm Nikodem</h3>
+          <p class="mb-4">
+            I always find it cringy to name myself a philosopher, but that's actually true. (it's not something to eb ashamed of.... as doing that and that... and that what I offer and what interests me the most) As I am an educator, academic and PhD candidate working at the intersection of critical thinking, formal epistemology, and data science. I design and deliver workshops that help individuals and teams think more clearly, reason more rigorously, and communicate more effectively.
+          </p>
+          <p>
+            My academic background helps me see reasoning as a system — one that can be understood, optimized, and debugged. I'm interested in what we know, why we believe, and how to align our intuitions with evidence and structure.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- Trainings Section -->
+    <section id="trainings" class="py-24 px-6 bg-gray-50">
+      <div class="max-w-5xl mx-auto">
+        <h3 class="text-3xl font-bold text-center mb-12">Workshops</h3>
+        <div class="grid md:grid-cols-2 gap-10">
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h4 class="text-xl font-semibold mb-2">Critical Thinking Workshop</h4>
+            <p class="mb-4">
+              Learn how to recognize fallacies, challenge assumptions, and ask better questions — using tools from logic, philosophy, and cognitive science.
+            </p>
+            <a href="#contact" class="text-blue-600 hover:underline">Learn more →</a>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h4 class="text-xl font-semibold mb-2">Data Visualization Workshop</h4>
+            <p class="mb-4">
+              Learn to communicate complex information clearly and persuasively — using evidence, design principles, and storytelling.
+            </p>
+            <a href="#contact" class="text-blue-600 hover:underline">Learn more →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 px-6 relative">
+      <div class="max-w-4xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-12">What People Say</h3>
+        <div class="relative h-40">
+          <div class="testimonial active bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”</p>
+            <p class="mt-2 font-semibold">— Workshop Participant</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“He makes abstract concepts crystal clear and actually fun.”</p>
+            <p class="mt-2 font-semibold">— University Student</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“It changed how I structure my thinking — and my team’s.”</p>
+            <p class="mt-2 font-semibold">— Team Leader</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“Clear, thoughtful, and surprisingly fun — I felt smarter after.”</p>
+            <p class="mt-2 font-semibold">— Business Analyst</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“The combination of philosophy and real-world skills is gold.”</p>
+            <p class="mt-2 font-semibold">— Workshop Attendee</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“I learned more in 3 hours than in some semester-long courses.”</p>
+            <p class="mt-2 font-semibold">— Student</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const testimonials = document.querySelectorAll('.testimonial');
+      let index = 0;
+
+      setInterval(() => {
+        testimonials[index].classList.remove('active');
+        index = (index + 1) % testimonials.length;
+        testimonials[index].classList.add('active');
+      }, 4000);
+    </script>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-6 bg-gray-50">
+      <div class="max-w-5xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-12">Projects & Work</h3>
+        <p class="text-lg mb-6">Coming soon: articles, collaborations, and personal projects across philosophy, epistemology, and data science.</p>
+        <!-- Placeholder for future grid/list -->
+      </div>
+    </section>
+
+    <!-- YouTube Section -->
+    <section id="youtube" class="py-24 px-6">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        <img src="your-youtube-promo.jpg" alt="YouTube Setup" class="rounded-xl shadow-lg" />
+        <div>
+          <h3 class="text-3xl font-bold mb-4">Philosophy for Everyone</h3>
+          <p class="mb-4">
+            On my YouTube channel, I explore philosophical ideas in a grounded, relatable way — from Plato to probabilistic reasoning. It’s a space to rethink assumptions and spark better questions.
+          </p>
+          <a href="https://www.youtube.com/@Nikodem.Lewandowski" target="_blank" class="text-blue-600 hover:underline">Visit my channel →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6">
+      <div class="max-w-3xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-6">Let's Connect</h3>
+        <p class="mb-6">Want to collaborate or book a workshop? Reach out below or email me directly.</p>
+        <a
+          href="mailto:your@email.com"
+          class="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 transition"
+        >
+          Contact Me
+        </a>
+      </div>
+    </section>
+
+    <footer class="text-center py-8 text-sm text-gray-500">
+      &copy; 2025 Nikodem Lewandowski. All rights reserved.
+    </footer>
+  </body>
+</html>
