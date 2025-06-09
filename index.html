@@ -13,7 +13,7 @@
     <!-- STYLE-->
     
     <style>
-      html {
+      html {dio
         scroll-behavior: smooth;
       }
       .fade-in {
@@ -33,6 +33,9 @@
         opacity: 1;
         position: relative;
       }
+     .hero-overlay {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.0001) 100%);
+      } 
     </style>
   </head>
 
@@ -41,7 +44,7 @@
 
     <!-- Hamburger Menu -->
     <div class="fixed top-4 right-4 z-50">
-      <button @click="open = !open" class="text-gray-900 focus:outline-none">
+      <button @click="open = !open" class="text-white focus:outline-none">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
@@ -64,16 +67,36 @@
       </nav>
     </div>
 
+
+    
     <!-- Hero Section 1: Fullscreen with Text -->
-    <section class="h-screen bg-cover bg-center flex items-center px-6 text-left" style="background-image: url('image1.jpg');">
-      <div class="max-w-xl text-white">
-        <h1 class="text-5xl font-bold leading-tight mb-4">My goal is to breach the gap.</h1>
-        <p class="text-xl mb-6">Between theory and practice. Between intuition and reason. Between ideas and action.</p>
-        <a href="#trainings" class="bg-green-800 hover:bg-green-900 text-white px-6 py-3 rounded-lg shadow transition">Explore Workshops</a>
+    <section class="relative h-screen bg-cover bg-center flex items-center px-6 text-left" style="background-image: url('profilePicLarge1bckdimmed.png');">
+      <!-- Elegant overlay -->
+      <div class="absolute inset-0 hero-overlay"></div>
+      
+      <!-- Content -->
+      <div class="relative z-10 max-w-xl text-white">
+        <h1 class="text-5xl font-bold leading-snug mb-4">
+          My goal is to breach<br>
+          <span class="text-green-400 italic text-6xl font-extrabold tracking-tight">the gap</span>
+        </h1>
+        <p class="text-xl mb-6 leading-relaxed">
+          Between theory and practice.<br>
+          Between intuition and reason.<br>
+          Between ideas and action.
+        </p>
+        <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg shadow transition">
+          Explore Workshops
+        </a>
       </div>
     </section>
 
-    <!-- Hero Section 2: Theory ↔ Practice -->
+
+
+
+
+
+    <!-- Hero Section 2: Theory ↔ Practice 
     <section class="grid grid-cols-3 h-[80vh]">
       <div class="bg-cover bg-center" style="background-image: url('image2.jpg');">
         <div class="h-full w-full bg-black bg-opacity-30 flex items-center justify-center">
@@ -88,7 +111,7 @@
           <h2 class="text-3xl text-white font-semibold">Practice</h2>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- Mission Section -->
     <section id="mission" class="py-24 px-6">
