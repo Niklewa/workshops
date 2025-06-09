@@ -70,26 +70,31 @@
 
     
     <!-- Hero Section 1: Fullscreen with Text -->
-    <section class="relative h-screen bg-cover bg-center flex items-center px-6 text-left" style="background-image: url('profilePicLarge1bckdimmed.png');">
-      <!-- Elegant overlay -->
-      <div class="absolute inset-0 hero-overlay"></div>
-      
-      <!-- Content -->
-      <div class="relative z-10 max-w-xl text-white">
-        <h1 class="text-5xl font-bold leading-snug mb-4">
-          My goal is to breach<br>
-          <span class="text-green-400 italic text-6xl font-extrabold tracking-tight">the gap</span>
-        </h1>
-        <p class="text-xl mb-6 leading-relaxed">
-          Between theory and practice.<br>
-          Between intuition and reason.<br>
-          Between ideas and action.
-        </p>
-        <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg shadow transition">
-          Explore Workshops
-        </a>
-      </div>
-    </section>
+<section class="relative min-h-screen bg-cover bg-center flex flex-col md:block px-6" style="background-image: url('profilePicLarge1bckdimmed.png');">
+  <!-- Background Image (visible on mobile) -->
+  <div class="h-64 md:hidden bg-cover bg-center" style="background-image: url('profilePicLarge1bckdimmed.png');"></div>
+  
+  <!-- Overlay (hidden on mobile, visible on desktop) -->
+  <div class="hidden md:block absolute inset-0 hero-overlay"></div>
+  
+  <!-- Text Content (positioned below image on mobile, overlay on desktop) -->
+  <div class="relative md:absolute md:inset-0 z-10 max-w-xl text-white flex items-center justify-center md:justify-start py-8 md:py-0">
+    <div class="text-center md:text-left">
+      <h1 class="text-4xl md:text-5xl font-bold leading-snug mb-4">
+        My goal is to breach<br>
+        <span class="text-green-400 italic text-5xl md:text-6xl font-extrabold tracking-tight">the gap</span>
+      </h1>
+      <p class="text-lg md:text-xl mb-6 leading-relaxed">
+        Between theory and practice.<br>
+        Between intuition and reason.<br>
+        Between ideas and action.
+      </p>
+      <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg shadow transition">
+        Explore Workshops
+      </a>
+    </div>
+  </div>
+</section>
 
 
 
