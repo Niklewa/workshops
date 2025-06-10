@@ -1,454 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikodem Lewandowski - Critical Thinking Workshops</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Critical Thinking Workshops</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        html {
-            scroll-behavior: smooth;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .glass-morphism {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-        
-        .gradient-overlay {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.75) 100%);
-        }
-        
-        .text-gradient {
-            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-        }
-        
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-1px);
-        }
-        
-        .section-appear {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
-        }
-        
-        .section-appear.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .testimonial {
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            position: absolute;
-            width: 100%;
-            top: 0;
-            left: 0;
-        }
-        
-        .testimonial.active {
-            opacity: 1;
-            position: relative;
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .highlight-text {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .highlight-text::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
-            border-radius: 2px;
-            animation: highlightExpand 1.5s ease-out 1.2s forwards;
-            transform: scaleX(0);
-            transform-origin: left;
-        }
-        
-        @keyframes highlightExpand {
-            to { transform: scaleX(1); }
-        }
+      html {
+        scroll-behavior: smooth;
+      }
+      .fade-in {
+        animation: fadeIn 1.5s ease-in;
+      }
+      @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+
+      .testimonial {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        position: absolute;
+        width: 100%;
+      }
+      .testimonial.active {
+        opacity: 1;
+        position: relative;
+      }
+      /* .hero-overlay custom CSS is no longer needed if using Tailwind's gradient classes directly */
     </style>
-</head>
+  </head>
 
-<body class="bg-white text-gray-900" x-data="{ open: false }">
-    <!-- Navigation -->
-    <div class="fixed top-6 right-6 z-50">
-        <button @click="open = !open" class="glass-morphism text-white p-3 rounded-xl hover:bg-white/20 transition-all duration-300 focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
+
+  <body class="bg-white text-gray-900 font-sans" x-data="{ open: false }">
+
+    <div class="fixed top-4 right-4 z-50">
+      <button @click="open = !open" class="text-white focus:outline-none md:text-gray-900">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
     </div>
 
-    <!-- Sidebar Menu -->
-    <div class="fixed inset-0 bg-black bg-opacity-60 z-40" x-show="open" @click.away="open = false" x-transition.opacity></div>
-    <div class="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl p-8 z-50 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }">
-        <div class="flex justify-between items-center mb-8">
-            <h3 class="text-xl font-semibold text-gray-800">Navigation</h3>
-            <button @click="open = false" class="text-gray-500 hover:text-gray-700">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-        </div>
-        <nav class="space-y-6">
-            <a href="#about" @click="open = false" class="block text-lg text-gray-700 hover:text-emerald-600 transition-colors duration-200 py-2">About</a>
-            <a href="#mission" @click="open = false" class="block text-lg text-gray-700 hover:text-emerald-600 transition-colors duration-200 py-2">Mission</a>
-            <a href="#trainings" @click="open = false" class="block text-lg text-gray-700 hover:text-emerald-600 transition-colors duration-200 py-2">Workshops</a>
-            <a href="#testimonials" @click="open = false" class="block text-lg text-gray-700 hover:text-emerald-600 transition-colors duration-200 py-2">Testimonials</a>
-            <a href="#projects" @click="open = false" class="block text-lg text-gray-700 hover:text-emerald-600 transition-colors duration-200 py-2">Projects</a>
-            <a href="#youtube" @click="open = false" class="block text-lg text-gray-700 hover:text-emerald-600 transition-colors duration-200 py-2">YouTube</a>
-            <a href="#contact" @click="open = false" class="block text-lg text-gray-700 hover:text-emerald-600 transition-colors duration-200 py-2">Contact</a>
-        </nav>
+    
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40" x-show="open" @click.away="open = false" x-transition.opacity></div>
+    <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-6 z-50 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }">
+      <nav class="space-y-4 text-lg">
+        <a href="#about" @click="open = false" class="block hover:text-blue-600">About</a>
+        <a href="#mission" @click="open = false" class="block hover:text-blue-600">Mission</a>
+        <a href="#trainings" @click="open = false" class="block hover:text-blue-600">Trainings</a>
+        <a href="#testimonials" @click="open = false" class="block hover:text-blue-600">Testimonials</a>
+        <a href="#projects" @click="open = false" class="block hover:text-blue-600">Projects</a>
+        <a href="#youtube" @click="open = false" class="block hover:text-blue-600">YouTube</a>
+        <a href="#contact" @click="open = false" class="block hover:text-blue-600">Contact</a>
+      </nav>
     </div>
 
-    <!-- Hero Section -->
-    <section class="relative h-screen bg-cover bg-center flex items-center overflow-hidden" style="background-image: url('profilePicLarge1.png');">
-        <div class="absolute inset-0 gradient-overlay"></div>
         
-        <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="max-w-3xl">
-                <div class="fade-in-up mb-6">
-                    <span class="inline-block px-4 py-2 bg-emerald-500/20 text-emerald-300 text-sm font-medium rounded-full border border-emerald-500/30">
-                        🎯 Philosophy • Critical Thinking • Education
-                    </span>
-                </div>
-                
-                <h1 class="fade-in-up delay-1 text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 text-white tracking-tight">
-                    My goal is to breach<br>
-                    <span class="highlight-text text-gradient font-extrabold">the gap</span>
-                </h1>
-                
-                <div class="fade-in-up delay-2 text-xl lg:text-2xl text-gray-200 mb-8 space-y-3 leading-relaxed">
-                    <p class="flex items-center gap-3">
-                        <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>
-                        Between theory and practice
-                    </p>
-                    <p class="flex items-center gap-3">
-                        <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
-                        Between intuition and reason
-                    </p>
-                    <p class="flex items-center gap-3">
-                        <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
-                        Between ideas and action
-                    </p>
-                </div>
-                
-                <div class="fade-in-up delay-3 flex flex-col sm:flex-row gap-4">
-                    <a href="#trainings" class="btn-primary text-white px-8 py-4 rounded-xl font-semibold text-lg inline-flex items-center justify-center gap-2 group">
-                        <span>Explore Workshops</span>
-                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                    <a href="#about" class="btn-secondary text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/15 transition-all duration-300 inline-flex items-center justify-center gap-2">
-                        <span>Learn More</span>
-                    </a>
-                </div>
-            </div>
+    <section class="hidden md:flex relative min-h-screen items-center justify-center px-6 text-white">
+      <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('profilePicLarge1bckdimmed.png');"></div>
+
+      <div class="absolute inset-0 z-10 bg-gradient-to-r from-black/90 via-black/70 to-transparent"></div>
+
+      <div class="relative z-20 max-w-3xl w-full text-center md:text-left fade-in">
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+          My goal is to breach<br>
+          <span class="text-white italic text-5xl md:text-6xl font-extrabold">the gap</span>
+        </h1>
+        <p class="text-lg md:text-xl mb-6 leading-relaxed">
+          Between theory and practice.<br>
+          Between intuition and reason.<br>
+          Between ideas and action.
+        </p>
+        <div class="flex justify-center md:justify-start">
+          <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg shadow transition">
+            Explore Workshops
+          </a>
         </div>
-        
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-            </svg>
-        </div>
+      </div>
     </section>
 
-    <!-- Mission Section -->
-    <section id="mission" class="py-24 px-6 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-4xl mx-auto text-center section-appear">
-            <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900">My Mission</h2>
-            <p class="text-xl lg:text-2xl text-gray-700 leading-relaxed">
-                To breach the gap between theory and practice. Between the hermetic world of academia and the real-world challenges of thinking and decision-making. Between fast, intuitive judgments and structured, rational reflection.
+    <section class="flex flex-col md:hidden min-h-screen">
+      <div class="w-full relative h-96"> <img src="profilePicLarge1bckdimmed.png" alt="Nikodem Lewandowski" class="absolute inset-0 w-full h-full object-cover object-center">
+        </div>
+
+      <div class="w-full flex-grow flex items-center justify-center p-8 text-center fade-in bg-gray-50 text-gray-900">
+        <div class="max-w-xl">
+          <h1 class="text-3xl sm:text-4xl font-bold leading-tight mb-4">
+            My goal is to breach<br>
+            <span class="text-green-700 italic text-4xl sm:text-5xl font-extrabold">the gap</span>
+          </h1>
+          <p class="text-base sm:text-lg mb-6 leading-relaxed">
+            Between theory and practice.<br>
+            Between intuition and reason.<br>
+            Between ideas and action.
+          </p>
+          <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg shadow transition">
+            Explore Workshops
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="mission" class="py-24 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-6">My Mission</h3>
+        <p class="text-xl">
+          To breach the gap between theory and practice. Between the hermetic world of academia and the real-world challenges of thinking and decision-making. Between fast, intuitive judgments and structured, rational reflection.
+        </p>
+      </div>
+    </section>
+
+    <section id="about" class="py-24 px-6 bg-gray-50">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+        <div>
+          <img src="mepic2.jpg" alt="Your Photo" class="rounded-2xl shadow-xl" />
+        </div>
+        <div>
+          <h3 class="text-3xl font-bold mb-4">Hi, I'm Nikodem</h3>
+          <p class="mb-4">
+            I always find it cringy to name myself a philosopher, but that's actually true. (it's not something to eb ashamed of.... as doing that and that... and that what I offer and what interests me the most) As I am an educator, academic and PhD candidate working at the intersection of critical thinking, formal epistemology, and data science. I design and deliver workshops that help individuals and teams think more clearly, reason more rigorously, and communicate more effectively.
+          </p>
+          <p>
+            My academic background helps me see reasoning as a system — one that can be understood, optimized, and debugged. I'm interested in what we know, why we believe, and how to align our intuitions with evidence and structure.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <section id="trainings" class="py-24 px-6 bg-gray-50">
+      <div class="max-w-5xl mx-auto">
+        <h3 class="text-3xl font-bold text-center mb-12">Workshops</h3>
+        <div class="grid md:grid-cols-2 gap-10">
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h4 class="text-xl font-semibold mb-2">Critical Thinking Workshop</h4>
+            <p class="mb-4">
+              Learn how to recognize fallacies, challenge assumptions, and ask better questions — using tools from logic, philosophy, and cognitive science.
             </p>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-24 px-6 bg-white">
-        <div class="max-w-6xl mx-auto section-appear">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1">
-                    <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900">Hi, I'm Nikodem</h2>
-                    <div class="prose prose-lg text-gray-700 space-y-6">
-                        <p>
-                            I always find it cringy to name myself a philosopher, but that's actually true. As an educator, academic and PhD candidate working at the intersection of critical thinking, formal epistemology, and data science, I design and deliver workshops that help individuals and teams think more clearly, reason more rigorously, and communicate more effectively.
-                        </p>
-                        <p>
-                            My academic background helps me see reasoning as a system — one that can be understood, optimized, and debugged. I'm interested in what we know, why we believe, and how to align our intuitions with evidence and structure.
-                        </p>
-                    </div>
-                </div>
-                <div class="order-1 lg:order-2">
-                    <div class="relative">
-                        <img src="mepic2.jpg" alt="Nikodem Lewandowski" class="rounded-2xl shadow-2xl w-full max-w-md mx-auto" />
-                        <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-emerald-400 to-blue-500 rounded-full opacity-20"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Workshops Section -->
-    <section id="trainings" class="py-24 px-6 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-6xl mx-auto section-appear">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Workshops</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Practical sessions that bridge academic rigor with real-world application
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover border border-gray-100">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">Critical Thinking Workshop</h3>
-                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                        Learn how to recognize fallacies, challenge assumptions, and ask better questions — using tools from logic, philosophy, and cognitive science.
-                    </p>
-                    <a href="#contact" class="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold group">
-                        Learn more 
-                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-                
-                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover border border-gray-100">
-                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-4 text-gray-900">Data Visualization Workshop</h3>
-                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                        Learn to communicate complex information clearly and persuasively — using evidence, design principles, and storytelling.
-                    </p>
-                    <a href="#contact" class="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold group">
-                        Learn more 
-                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-24 px-6 bg-white">
-        <div class="max-w-5xl mx-auto section-appear">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl lg:text-5xl font-bold mb-6 text-gray-900">What People Say</h2>
-                <p class="text-xl text-gray-600">Feedback from workshop participants and students</p>
-            </div>
-            
-            <div class="relative h-48 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-2xl p-8">
-                <div class="testimonial active">
-                    <blockquote class="text-xl italic text-gray-700 mb-4">
-                        "Inspiring, sharp, and engaging. The best workshop I've attended in years."
-                    </blockquote>
-                    <cite class="text-emerald-600 font-semibold">— Workshop Participant</cite>
-                </div>
-                <div class="testimonial">
-                    <blockquote class="text-xl italic text-gray-700 mb-4">
-                        "He makes abstract concepts crystal clear and actually fun."
-                    </blockquote>
-                    <cite class="text-emerald-600 font-semibold">— University Student</cite>
-                </div>
-                <div class="testimonial">
-                    <blockquote class="text-xl italic text-gray-700 mb-4">
-                        "It changed how I structure my thinking — and my team's."
-                    </blockquote>
-                    <cite class="text-emerald-600 font-semibold">— Team Leader</cite>
-                </div>
-                <div class="testimonial">
-                    <blockquote class="text-xl italic text-gray-700 mb-4">
-                        "Clear, thoughtful, and surprisingly fun — I felt smarter after."
-                    </blockquote>
-                    <cite class="text-emerald-600 font-semibold">— Business Analyst</cite>
-                </div>
-                <div class="testimonial">
-                    <blockquote class="text-xl italic text-gray-700 mb-4">
-                        "The combination of philosophy and real-world skills is gold."
-                    </blockquote>
-                    <cite class="text-emerald-600 font-semibold">— Workshop Attendee</cite>
-                </div>
-                <div class="testimonial">
-                    <blockquote class="text-xl italic text-gray-700 mb-4">
-                        "I learned more in 3 hours than in some semester-long courses."
-                    </blockquote>
-                    <cite class="text-emerald-600 font-semibold">— Student</cite>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 px-6 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-5xl mx-auto text-center section-appear">
-            <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900">Projects & Work</h2>
-            <div class="bg-white p-12 rounded-2xl shadow-lg border border-gray-100">
-                <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                    </svg>
-                </div>
-                <p class="text-xl text-gray-600 leading-relaxed">
-                    Coming soon: articles, collaborations, and personal projects across philosophy, epistemology, and data science.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- YouTube Section -->
-    <section id="youtube" class="py-24 px-6 bg-white">
-        <div class="max-w-6xl mx-auto section-appear">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="relative">
-                    <div class="aspect-video bg-gradient-to-br from-red-100 to-red-200 rounded-2xl shadow-2xl flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="w-16 h-16 bg-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-                                </svg>
-                            </div>
-                            <p class="text-gray-600">YouTube Channel Preview</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900">Philosophy for Everyone</h2>
-                    <div class="prose prose-lg text-gray-700 space-y-6">
-                        <p>
-                            On my YouTube channel, I explore philosophical ideas in a grounded, relatable way — from Plato to probabilistic reasoning. It's a space to rethink assumptions and spark better questions.
-                        </p>
-                    </div>
-                    <div class="mt-8">
-                        <a href="https://www.youtube.com/@Nikodem.Lewandowski" target="_blank" class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 group">
-                            <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-                            </svg>
-                            Visit my channel
-                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 px-6 bg-gradient-to-b from-gray-50 to-gray-100">
-        <div class="max-w-4xl mx-auto text-center section-appear">
-            <h2 class="text-4xl lg:text-5xl font-bold mb-8 text-gray-900">Let's Connect</h2>
-            <p class="text-xl text-gray-600 mb-12 leading-relaxed">
-                Want to collaborate or book a workshop? Reach out below or email me directly.
+            <a href="#contact" class="text-blue-600 hover:underline">Learn more →</a>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h4 class="text-xl font-semibold mb-2">Data Visualization Workshop</h4>
+            <p class="mb-4">
+              Learn to communicate complex information clearly and persuasively — using evidence, design principles, and storytelling.
             </p>
-            <div class="bg-white p-12 rounded-2xl shadow-lg border border-gray-100">
-                <a href="mailto:your@email.com" class="btn-primary text-white px-10 py-5 rounded-xl font-semibold text-xl inline-flex items-center justify-center gap-3 group">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                    </svg>
-                    <span>Contact Me</span>
-                </a>
-            </div>
+            <a href="#contact" class="text-blue-600 hover:underline">Learn more →</a>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12 text-center">
-        <div class="max-w-4xl mx-auto px-6">
-            <p class="text-lg">&copy; 2025 Nikodem Lewandowski. All rights reserved.</p>
+    <section id="testimonials" class="py-24 px-6 relative">
+      <div class="max-w-4xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-12">What People Say</h3>
+        <div class="relative h-40">
+          <div class="testimonial active bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”</p>
+            <p class="mt-2 font-semibold">— Workshop Participant</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“He makes abstract concepts crystal clear and actually fun.”</p>
+            <p class="mt-2 font-semibold">— University Student</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“It changed how I structure my thinking — and my team’s.”</p>
+            <p class="mt-2 font-semibold">— Team Leader</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“Clear, thoughtful, and surprisingly fun — I felt smarter after.”</p>
+            <p class="mt-2 font-semibold">— Business Analyst</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“The combination of philosophy and real-world skills is gold.”</p>
+            <p class="mt-2 font-semibold">— Workshop Attendee</p>
+          </div>
+          <div class="testimonial bg-white shadow-md rounded-xl p-6">
+            <p class="italic">“I learned more in 3 hours than in some semester-long courses.”</p>
+            <p class="mt-2 font-semibold">— Student</p>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
     <script>
-        // Testimonials rotation
-        const testimonials = document.querySelectorAll('.testimonial');
-        let index = 0;
+      const testimonials = document.querySelectorAll('.testimonial');
+      let index = 0;
 
-        setInterval(() => {
-            testimonials[index].classList.remove('active');
-            index = (index + 1) % testimonials.length;
-            testimonials[index].classList.add('active');
-        }, 4000);
+      setInterval(() => {
+        testimonials[index].classList.remove('active');
+        index = (index + 1) % testimonials.length;
+        testimonials[index].classList.add('active');
+      }, 4000);
+    </script>
 
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    <section id="projects" class="py-24 px-6 bg-gray-50">
+      <div class="max-w-5xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-12">Projects & Work</h3>
+        <p class="text-lg mb-6">Coming soon: articles, collaborations, and personal projects across philosophy, epistemology, and data science.</p>
+        </div>
+    </section>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible
+    <section id="youtube" class="py-24 px-6">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        <img src="your-youtube-promo.jpg" alt="YouTube Setup" class="rounded-xl shadow-lg" />
+        <div>
+          <h3 class="text-3xl font-bold mb-4">Philosophy for Everyone</h3>
+          <p class="mb-4">
+            On my YouTube channel, I explore philosophical ideas in a grounded, relatable way — from Plato to probabilistic reasoning. It’s a space to rethink assumptions and spark better questions.
+          </p>
+          <a href="https://www.youtube.com/@Nikodem.Lewandowski" target="_blank" class="text-blue-600 hover:underline">Visit my channel →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6">
+      <div class="max-w-3xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-6">Let's Connect</h3>
+        <p class="mb-6">Want to collaborate or book a workshop? Reach out below or email me directly.</p>
+        <a
+          href="mailto:your@email.com"
+          class="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 transition"
+        >
+          Contact Me
+        </a>
+      </div>
+    </section>
+
+    <footer class="text-center py-8 text-sm text-gray-500">
+      © 2025 Nikodem Lewandowski. All rights reserved.
+    </footer>
+  </body>
+</html>

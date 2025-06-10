@@ -10,8 +10,6 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
     
-    <!-- STYLE-->
-    
     <style>
       html {
         scroll-behavior: smooth;
@@ -34,27 +32,22 @@
         opacity: 1;
         position: relative;
       }
-     .hero-overlay {
-        background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.0001) 100%);
-      } 
+      /* .hero-overlay custom CSS is no longer needed if using Tailwind's gradient classes directly */
     </style>
   </head>
 
 
   <body class="bg-white text-gray-900 font-sans" x-data="{ open: false }">
 
-    <!-- Hamburger Menu -->
     <div class="fixed top-4 right-4 z-50">
-      <button @click="open = !open" class="text-white focus:outline-none">
+      <button @click="open = !open" class="text-white focus:outline-none md:text-gray-900">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </div>
 
-
     
-    <!-- Sidebar Menu -->
     <div class="fixed inset-0 bg-black bg-opacity-50 z-40" x-show="open" @click.away="open = false" x-transition.opacity></div>
     <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-6 z-50 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }">
       <nav class="space-y-4 text-lg">
@@ -68,21 +61,18 @@
       </nav>
     </div>
 
-
         
-    <!-- Hero Section: Fullscreen with Gradient Overlay -->
-    <section class="relative min-h-screen flex items-center justify-center px-6 text-white">
-      <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('profilePicLarge1bckdimmed.png');">
-        </div>
+    <section class="hidden md:flex relative min-h-screen items-center justify-center px-6 text-white">
+      <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('profilePicLarge1bckdimmed.png');"></div>
 
       <div class="absolute inset-0 z-10 bg-gradient-to-r from-black/90 via-black/70 to-transparent"></div>
 
       <div class="relative z-20 max-w-3xl w-full text-center md:text-left fade-in">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
           My goal is to breach<br>
-          <span class="text-white italic text-4xl sm:text-5xl md:text-6xl font-extrabold">the gap</span>
+          <span class="text-white italic text-5xl md:text-6xl font-extrabold">the gap</span>
         </h1>
-        <p class="text-base sm:text-lg md:text-xl mb-6 leading-relaxed">
+        <p class="text-lg md:text-xl mb-6 leading-relaxed">
           Between theory and practice.<br>
           Between intuition and reason.<br>
           Between ideas and action.
@@ -95,31 +85,28 @@
       </div>
     </section>
 
+    <section class="flex flex-col md:hidden min-h-screen">
+      <div class="w-full relative h-96"> <img src="profilePicLarge1bckdimmed.png" alt="Nikodem Lewandowski" class="absolute inset-0 w-full h-full object-cover object-center">
+        </div>
 
-
-
-
-
-
-
-    <!-- Hero Section 2: Theory ↔ Practice 
-    <section class="grid grid-cols-3 h-[80vh]">
-      <div class="bg-cover bg-center" style="background-image: url('image2.jpg');">
-        <div class="h-full w-full bg-black bg-opacity-30 flex items-center justify-center">
-          <h2 class="text-3xl text-white font-semibold">Theory</h2>
+      <div class="w-full flex-grow flex items-center justify-center p-8 text-center fade-in bg-gray-50 text-gray-900">
+        <div class="max-w-xl">
+          <h1 class="text-3xl sm:text-4xl font-bold leading-tight mb-4">
+            My goal is to breach<br>
+            <span class="text-green-700 italic text-4xl sm:text-5xl font-extrabold">the gap</span>
+          </h1>
+          <p class="text-base sm:text-lg mb-6 leading-relaxed">
+            Between theory and practice.<br>
+            Between intuition and reason.<br>
+            Between ideas and action.
+          </p>
+          <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg shadow transition">
+            Explore Workshops
+          </a>
         </div>
       </div>
-      <div class="bg-gray-100 flex items-center justify-center">
-        <p class="text-center text-gray-700 text-xl italic max-w-xs">This is the space I work in — the bridge between thought and execution, between knowing and doing.</p>
-      </div>
-      <div class="bg-cover bg-center" style="background-image: url('image3.jpg');">
-        <div class="h-full w-full bg-black bg-opacity-30 flex items-center justify-center">
-          <h2 class="text-3xl text-white font-semibold">Practice</h2>
-        </div>
-      </div>
-    </section> -->
+    </section>
 
-    <!-- Mission Section -->
     <section id="mission" class="py-24 px-6">
       <div class="max-w-4xl mx-auto text-center">
         <h3 class="text-3xl font-bold mb-6">My Mission</h3>
@@ -129,7 +116,6 @@
       </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="py-24 px-6 bg-gray-50">
       <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
         <div>
@@ -149,7 +135,6 @@
 
     
 
-    <!-- Trainings Section -->
     <section id="trainings" class="py-24 px-6 bg-gray-50">
       <div class="max-w-5xl mx-auto">
         <h3 class="text-3xl font-bold text-center mb-12">Workshops</h3>
@@ -172,7 +157,6 @@
       </div>
     </section>
 
-    <!-- Testimonials Section -->
     <section id="testimonials" class="py-24 px-6 relative">
       <div class="max-w-4xl mx-auto text-center">
         <h3 class="text-3xl font-bold mb-12">What People Say</h3>
@@ -216,16 +200,13 @@
       }, 4000);
     </script>
 
-    <!-- Projects Section -->
     <section id="projects" class="py-24 px-6 bg-gray-50">
       <div class="max-w-5xl mx-auto text-center">
         <h3 class="text-3xl font-bold mb-12">Projects & Work</h3>
         <p class="text-lg mb-6">Coming soon: articles, collaborations, and personal projects across philosophy, epistemology, and data science.</p>
-        <!-- Placeholder for future grid/list -->
-      </div>
+        </div>
     </section>
 
-    <!-- YouTube Section -->
     <section id="youtube" class="py-24 px-6">
       <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
         <img src="your-youtube-promo.jpg" alt="YouTube Setup" class="rounded-xl shadow-lg" />
@@ -239,7 +220,6 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="py-24 px-6">
       <div class="max-w-3xl mx-auto text-center">
         <h3 class="text-3xl font-bold mb-6">Let's Connect</h3>
@@ -254,7 +234,7 @@
     </section>
 
     <footer class="text-center py-8 text-sm text-gray-500">
-      &copy; 2025 Nikodem Lewandowski. All rights reserved.
+      © 2025 Nikodem Lewandowski. All rights reserved.
     </footer>
   </body>
 </html>
