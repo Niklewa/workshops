@@ -1,152 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Critical Thinking Workshops</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
-    
-    <style>
-      html {
-        scroll-behavior: smooth;
-      }
-      .fade-in {
-        animation: fadeIn 1.5s ease-in;
-      }
-      @keyframes fadeIn {
-        0% { opacity: 0; transform: translateY(20px); }
-        100% { opacity: 1; transform: translateY(0); }
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Critical Thinking Workshops</title>
+  <!-- Tailwind CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <!-- Google Fonts for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
 
-      .testimonial {
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-        position: absolute;
-        width: 100%;
-      }
-      .testimonial.active {
-        opacity: 1;
-        position: relative;
-      }
-      /* .hero-overlay custom CSS is no longer needed if using Tailwind's gradient classes directly */
-    </style>
-  </head>
+  <style>
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  .fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .hero-text-shadow {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .testimonial-scroller {
+    display: flex;
+    gap: 2rem;
+    animation: scroll-left 60s linear infinite;
+    width: max-content;
+  }
+  .testimonial-wrapper {
+    overflow: hidden;
+  }
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .testimonial-card {
+    min-width: 300px;
+    max-width: 300px;
+    flex: 0 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  @media (max-width: 768px) {
+    .testimonial-scroller {
+      animation-duration: 120s;
+    }
+  }
 
+  /* --- Mobile Hero Background Controls ---
+   * Tweak these variables to adjust the background image:
+   * --hero-bg-zoom: 1 = normal, 1.2 = 20% zoom in, etc.
+   * --hero-bg-x: horizontal position (0% = left, 50% = center, 100% = right)
+   * --hero-bg-y: vertical position (0% = top, 50% = center, 100% = bottom)
+   * Example: To zoom in and move image up, use a higher zoom and lower y value.
+   *
+   * The image will always keep its natural proportions (no squishing)!
+   */
+  .mobile-hero-bg {
+    --hero-bg-zoom: 1.1;      /* Zoom factor (1 = normal, >1 = zoom in) */
+    --hero-bg-x: 60%;          /* Horizontal position (0% = left, 50% = center) */
+    --hero-bg-y: 0%;          /* Vertical position (0% = top, 50% = center) */
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .mobile-hero-bg-inner {
+    position: absolute;
+    inset: 0;
+    background-image: url('profilePicLarge1bckdimmedSMALL.jpg');
+    background-size: cover;
+    background-position: var(--hero-bg-x) var(--hero-bg-y);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    transform: scale(var(--hero-bg-zoom));
+    transition: transform 0.3s, background-position 0.3s;
+    will-change: transform, background-position;
+  }
 
-  <body class="bg-white text-gray-900 font-sans" x-data="{ open: false }">
+  /* --- Mobile Hero Text Block Controls (Mobile only) ---
+   * Tweak these variables to adjust the position and width of the hero text block on mobile:
+   * --mobile-hero-text-top: how far from the top (e.g. 18vh, 80px)
+   * --mobile-hero-text-left: how far from the left (e.g. 0, 5vw, 20px)
+   * --mobile-hero-text-max-width: max width of the text block (e.g. 95vw, 400px)
+   *
+   * Example: To move the text block further down, increase --mobile-hero-text-top.
+   */
+  .mobile-hero-text {
+    position: absolute;
+    top: var(--mobile-hero-text-top, 18vh);
+    left: var(--mobile-hero-text-left, 10vw);
+    max-width: var(--mobile-hero-text-max-width, 95vw);
+    width: 100%;
+    z-index: 20;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  @media (min-width: 1024px) {
+    .mobile-hero-text { display: none !important; }
+  }
+  </style>
+</head>
 
-    <div class="fixed top-4 right-4 z-50">
-      <button @click="open = !open" class="text-white focus:outline-none md:text-gray-900">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
+<body class="bg-white text-gray-900 font-sans" x-data="{ open: false }">
+
+  <!-- Mobile Menu Button -->
+  <div class="fixed top-4 right-4 z-50">
+    <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu" class="text-gray-800 lg:text-white focus:outline-none transition-transform duration-300">
+      <svg x-show="!open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg x-show="open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 z-40" x-show="open" @click="open = false" x-transition.opacity></div>
+  <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-6 z-50 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }" x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
+    <button @click="open = false" aria-label="Close menu" class="absolute top-4 right-4 text-gray-700 hover:text-red-500 focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    <nav class="space-y-4 text-lg mt-8">
+      <a href="#about" @click="open = false" class="block hover:text-blue-600 font-semibold">About</a>
+      <a href="#mission" @click="open = false" class="block hover:text-blue-600 font-semibold">Mission</a>
+      <a href="#trainings" @click="open = false" class="block hover:text-blue-600 font-semibold">Trainings</a>
+      <a href="#testimonials" @click="open = false" class="block hover:text-blue-600 font-semibold">Testimonials</a>
+      <a href="#projects" @click="open = false" class="block hover:text-blue-600 font-semibold">Projects</a>
+      <a href="#youtube" @click="open = false" class="block hover:text-blue-600 font-semibold">YouTube</a>
+      <a href="#contact" @click="open = false" class="block hover:text-blue-600 font-semibold">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center bg-gray-100 lg:bg-transparent text-white transition-colors duration-500">
+    <!-- Mobile background and overlay -->
+    <div class="absolute inset-0 z-0 lg:hidden">
+      <div class="mobile-hero-bg">
+        <div class="mobile-hero-bg-inner"></div>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
     </div>
-
-    
-    <div class="fixed inset-0 bg-black bg-opacity-50 z-40" x-show="open" @click.away="open = false" x-transition.opacity></div>
-    <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-6 z-50 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }">
-      <nav class="space-y-4 text-lg">
-        <a href="#about" @click="open = false" class="block hover:text-blue-600">About</a>
-        <a href="#mission" @click="open = false" class="block hover:text-blue-600">Mission</a>
-        <a href="#trainings" @click="open = false" class="block hover:text-blue-600">Trainings</a>
-        <a href="#testimonials" @click="open = false" class="block hover:text-blue-600">Testimonials</a>
-        <a href="#projects" @click="open = false" class="block hover:text-blue-600">Projects</a>
-        <a href="#youtube" @click="open = false" class="block hover:text-blue-600">YouTube</a>
-        <a href="#contact" @click="open = false" class="block hover:text-blue-600">Contact</a>
-      </nav>
+    <!-- Desktop background and overlay -->
+    <div class="absolute inset-0 z-0 hidden lg:block">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('profilePicLarge1bckdimmedSMALL.jpg');"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent"></div>
     </div>
-
-        
-    <section class="hidden md:flex relative min-h-screen items-center justify-center px-6 text-white">
-      <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('profilePicLarge1bckdimmed.png');"></div>
-
-      <div class="absolute inset-0 z-10 bg-gradient-to-r from-black/90 via-black/70 to-transparent"></div>
-
-      <div class="relative z-20 max-w-3xl w-full text-center md:text-left fade-in">
-        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+    <div class="relative z-20 container mx-auto px-6 pt-40 pb-10 lg:py-0 flex flex-col items-center lg:block w-full">
+      <!-- Mobile hero text block with full position control -->
+      <div class="mobile-hero-text">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 fade-in hero-text-shadow text-white lg:text-white">
           My goal is to breach<br>
-          <span class="text-white italic text-5xl md:text-6xl font-extrabold">the gap</span>
+          <span class="text-green-400 italic text-5xl md:text-6xl font-extrabold hero-text-shadow">the gap</span>
         </h1>
-        <p class="text-lg md:text-xl mb-6 leading-relaxed">
+        <p class="text-lg md:text-xl mb-8 leading-relaxed fade-in hero-text-shadow text-white lg:text-white">
           Between theory and practice.<br>
           Between intuition and reason.<br>
           Between ideas and action.
         </p>
-        <div class="flex justify-center md:justify-start">
-          <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg shadow transition">
+        <div class="flex justify-center w-full fade-in">
+          <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-8 py-3 rounded-lg shadow-lg transition text-lg font-semibold w-full sm:w-auto max-w-xs lg:max-w-none">
             Explore Workshops
           </a>
         </div>
       </div>
-    </section>
-
-    <section class="flex flex-col md:hidden min-h-screen">
-      <div class="w-full relative h-96"> <img src="profilePicLarge1bckdimmed.png" alt="Nikodem Lewandowski" class="absolute inset-0 w-full h-full object-cover object-center">
-        </div>
-
-      <div class="w-full flex-grow flex items-center justify-center p-8 text-center fade-in bg-gray-50 text-gray-900">
-        <div class="max-w-xl">
-          <h1 class="text-3xl sm:text-4xl font-bold leading-tight mb-4">
-            My goal is to breach<br>
-            <span class="text-green-700 italic text-4xl sm:text-5xl font-extrabold">the gap</span>
-          </h1>
-          <p class="text-base sm:text-lg mb-6 leading-relaxed">
-            Between theory and practice.<br>
-            Between intuition and reason.<br>
-            Between ideas and action.
-          </p>
-          <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg shadow transition">
-            Explore Workshops
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="mission" class="py-24 px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h3 class="text-3xl font-bold mb-6">My Mission</h3>
-        <p class="text-xl">
-          To breach the gap between theory and practice. Between the hermetic world of academia and the real-world challenges of thinking and decision-making. Between fast, intuitive judgments and structured, rational reflection.
+      <!-- Desktop hero text block remains unchanged -->
+      <div class="w-full lg:max-w-2xl text-center lg:text-left flex flex-col items-center lg:items-start lg:mt-32 lg:flex hidden lg:block">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 fade-in hero-text-shadow text-white lg:text-white">
+          My goal is to breach<br>
+          <span class="text-green-400 italic text-5xl md:text-6xl font-extrabold hero-text-shadow">the gap</span>
+        </h1>
+        <p class="text-lg md:text-xl mb-8 leading-relaxed fade-in hero-text-shadow text-white lg:text-white">
+          Between theory and practice.<br>
+          Between intuition and reason.<br>
+          Between ideas and action.
         </p>
-      </div>
-    </section>
-
-    <section id="about" class="py-24 px-6 bg-gray-50">
-      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-        <div>
-          <img src="mepic2.jpg" alt="Your Photo" class="rounded-2xl shadow-xl" />
-        </div>
-        <div>
-          <h3 class="text-3xl font-bold mb-4">Hi, I'm Nikodem</h3>
-          <p class="mb-4">
-            I always find it cringy to name myself a philosopher, but that's actually true. (it's not something to eb ashamed of.... as doing that and that... and that what I offer and what interests me the most) As I am an educator, academic and PhD candidate working at the intersection of critical thinking, formal epistemology, and data science. I design and deliver workshops that help individuals and teams think more clearly, reason more rigorously, and communicate more effectively.
-          </p>
-          <p>
-            My academic background helps me see reasoning as a system — one that can be understood, optimized, and debugged. I'm interested in what we know, why we believe, and how to align our intuitions with evidence and structure.
-          </p>
+        <div class="flex justify-center w-full lg:justify-start fade-in">
+          <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-8 py-3 rounded-lg shadow-lg transition text-lg font-semibold w-full sm:w-auto max-w-xs lg:max-w-none">
+            Explore Workshops
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    
+  <!-- About Section -->
+  <section id="about" class="py-24 px-6 bg-gray-50">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <img src="mepic2.jpg" alt="Nikodem Lewandowski" class="rounded-2xl shadow-xl" />
+      </div>
+      <div>
+        <h3 class="text-3xl font-bold mb-4">Hi, I'm Nikodem</h3>
+        <p class="mb-4">
+          Philosopher, educator, and PhD candidate working at the intersection of critical thinking, formal epistemology, and data science. I design workshops that help people think more clearly, reason rigorously, and communicate effectively.
+        </p>
+        <ul class="list-disc pl-5 text-gray-700 mb-4">
+          <li>Critical Thinking & Logic</li>
+          <li>Data Visualization</li>
+          <li>Evidence-based Reasoning</li>
+        </ul>
+        <a href="#contact" class="text-blue-600 hover:underline">Contact me →</a>
+      </div>
+    </div>
+  </section>
 
-    <section id="trainings" class="py-24 px-6 bg-gray-50">
-      <div class="max-w-5xl mx-auto">
-        <h3 class="text-3xl font-bold text-center mb-12">Workshops</h3>
-        <div class="grid md:grid-cols-2 gap-10">
-          <div class="bg-white p-6 rounded-xl shadow-md">
+  <!-- Workshops Section -->
+  <section id="trainings" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h3 class="text-3xl font-bold text-center mb-12">Workshops</h3>
+      <div class="grid md:grid-cols-2 gap-10">
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex items-start gap-4">
+          <span class="text-green-600 text-3xl">
+            <!-- Lightbulb icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a7 7 0 017 7c0 2.386-1.28 4.472-3.2 5.6A2.5 2.5 0 0012 19.5V21m0-2.5a2.5 2.5 0 01-2.5-2.5c0-.828.336-1.578.879-2.121A7.001 7.001 0 015 9a7 7 0 017-7z" /></svg>
+          </span>
+          <div>
             <h4 class="text-xl font-semibold mb-2">Critical Thinking Workshop</h4>
             <p class="mb-4">
               Learn how to recognize fallacies, challenge assumptions, and ask better questions — using tools from logic, philosophy, and cognitive science.
             </p>
             <a href="#contact" class="text-blue-600 hover:underline">Learn more →</a>
           </div>
-          <div class="bg-white p-6 rounded-xl shadow-md">
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex items-start gap-4">
+          <span class="text-blue-600 text-3xl">
+            <!-- Chart icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m4 0v-2a2 2 0 012-2h2a2 2 0 012 2v2" /></svg>
+          </span>
+          <div>
             <h4 class="text-xl font-semibold mb-2">Data Visualization Workshop</h4>
             <p class="mb-4">
               Learn to communicate complex information clearly and persuasively — using evidence, design principles, and storytelling.
@@ -155,86 +264,127 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="testimonials" class="py-24 px-6 relative">
-      <div class="max-w-4xl mx-auto text-center">
-        <h3 class="text-3xl font-bold mb-12">What People Say</h3>
-        <div class="relative h-40">
-          <div class="testimonial active bg-white shadow-md rounded-xl p-6">
-            <p class="italic">“Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”</p>
-            <p class="mt-2 font-semibold">— Workshop Participant</p>
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-24 px-6 bg-gray-50">
+    <div class="max-w-6xl mx-auto text-center">
+      <h3 class="text-3xl font-bold mb-12">What People Say</h3>
+      <div class="testimonial-wrapper">
+        <div class="testimonial-scroller">
+          <div class="testimonial-card">
+            <blockquote class="italic text-lg text-gray-800">
+              “Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”
+            </blockquote>
+            <footer class="mt-4 font-semibold text-gray-600">— Workshop Participant</footer>
           </div>
-          <div class="testimonial bg-white shadow-md rounded-xl p-6">
-            <p class="italic">“He makes abstract concepts crystal clear and actually fun.”</p>
-            <p class="mt-2 font-semibold">— University Student</p>
+          <div class="testimonial-card">
+            <blockquote class="italic text-lg text-gray-800">
+              “He makes abstract concepts crystal clear and actually fun.”
+            </blockquote>
+            <footer class="mt-4 font-semibold text-gray-600">— University Student</footer>
           </div>
-          <div class="testimonial bg-white shadow-md rounded-xl p-6">
-            <p class="italic">“It changed how I structure my thinking — and my team’s.”</p>
-            <p class="mt-2 font-semibold">— Team Leader</p>
+          <div class="testimonial-card">
+            <blockquote class="italic text-lg text-gray-800">
+              “It changed how I structure my thinking — and my team’s.”
+            </blockquote>
+            <footer class="mt-4 font-semibold text-gray-600">— Team Leader</footer>
           </div>
-          <div class="testimonial bg-white shadow-md rounded-xl p-6">
-            <p class="italic">“Clear, thoughtful, and surprisingly fun — I felt smarter after.”</p>
-            <p class="mt-2 font-semibold">— Business Analyst</p>
+          <!-- Duplicate testimonials for smooth looping -->
+          <div class="testimonial-card">
+            <blockquote class="italic text-lg text-gray-800">
+              “Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”
+            </blockquote>
+            <footer class="mt-4 font-semibold text-gray-600">— Workshop Participant</footer>
           </div>
-          <div class="testimonial bg-white shadow-md rounded-xl p-6">
-            <p class="italic">“The combination of philosophy and real-world skills is gold.”</p>
-            <p class="mt-2 font-semibold">— Workshop Attendee</p>
+          <div class="testimonial-card">
+            <blockquote class="italic text-lg text-gray-800">
+              “He makes abstract concepts crystal clear and actually fun.”
+            </blockquote>
+            <footer class="mt-4 font-semibold text-gray-600">— University Student</footer>
           </div>
-          <div class="testimonial bg-white shadow-md rounded-xl p-6">
-            <p class="italic">“I learned more in 3 hours than in some semester-long courses.”</p>
-            <p class="mt-2 font-semibold">— Student</p>
+          <div class="testimonial-card">
+            <blockquote class="italic text-lg text-gray-800">
+              “It changed how I structure my thinking — and my team’s.”
+            </blockquote>
+            <footer class="mt-4 font-semibold text-gray-600">— Team Leader</footer>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <script>
-      const testimonials = document.querySelectorAll('.testimonial');
-      let index = 0;
+  <!-- Projects Section -->
+  <section id="projects" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto text-center">
+      <h3 class="text-3xl font-bold mb-12">Projects & Work</h3>
+      <p class="text-lg mb-6">Coming soon: articles, collaborations, and personal projects across philosophy, epistemology, and data science.</p>
+    </div>
+  </section>
 
-      setInterval(() => {
-        testimonials[index].classList.remove('active');
-        index = (index + 1) % testimonials.length;
-        testimonials[index].classList.add('active');
-      }, 4000);
-    </script>
+  <!-- YouTube Section -->
+  <section id="youtube" class="py-24 px-6 bg-gray-50">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <img src="your-youtube-promo.jpg" alt="YouTube Setup" class="rounded-xl shadow-lg" />
+      <div>
+        <h3 class="text-3xl font-bold mb-4">Philosophy for Everyone</h3>
+        <p class="mb-4">
+          On my YouTube channel, I explore philosophical ideas in a grounded, relatable way — from Plato to probabilistic reasoning. It’s a space to rethink assumptions and spark better questions.
+        </p>
+        <a href="https://www.youtube.com/@Nikodem.Lewandowski" target="_blank" class="text-blue-600 hover:underline">Visit my channel →</a>
+      </div>
+    </div>
+  </section>
 
-    <section id="projects" class="py-24 px-6 bg-gray-50">
-      <div class="max-w-5xl mx-auto text-center">
-        <h3 class="text-3xl font-bold mb-12">Projects & Work</h3>
-        <p class="text-lg mb-6">Coming soon: articles, collaborations, and personal projects across philosophy, epistemology, and data science.</p>
-        </div>
-    </section>
-
-    <section id="youtube" class="py-24 px-6">
-      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-        <img src="your-youtube-promo.jpg" alt="YouTube Setup" class="rounded-xl shadow-lg" />
-        <div>
-          <h3 class="text-3xl font-bold mb-4">Philosophy for Everyone</h3>
-          <p class="mb-4">
-            On my YouTube channel, I explore philosophical ideas in a grounded, relatable way — from Plato to probabilistic reasoning. It’s a space to rethink assumptions and spark better questions.
-          </p>
-          <a href="https://www.youtube.com/@Nikodem.Lewandowski" target="_blank" class="text-blue-600 hover:underline">Visit my channel →</a>
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-12 px-6">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      <div>
+        <h4 class="text-xl font-semibold mb-4">Nikodem Lewandowski</h4>
+        <p class="text-gray-400 text-sm">
+          Bridging the gap between theory and practice, intuition and reason, ideas and action.
+        </p>
+      </div>
+      <div>
+        <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+          <li><a href="#trainings" class="text-gray-400 hover:text-white transition-colors">Workshops</a></li>
+          <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xl font-semibold mb-4">Connect</h4>
+        <form class="mb-4">
+          <input type="email" placeholder="Your email" class="px-3 py-2 rounded text-gray-900 w-40" />
+          <button type="submit" class="ml-2 px-4 py-2 bg-green-600 rounded text-white hover:bg-green-700">Subscribe</button>
+        </form>
+        <div class="flex justify-center md:justify-start space-x-6">
+          <a href="mailto:nikodem@email.com" class="text-gray-400 hover:text-white transition-colors" aria-label="Email">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+            </svg>
+          </a>
+          <a href="https://linkedin.com/in/nikodem-lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-9.458c0-2.252-.756-3.78-2.794-3.78-1.554 0-2.433 1.054-2.837 2.072h-.036v-1.765H9.626v11.458h-3.554V9.452H9.626v1.516h.036c.46-1.077 1.637-2.072 3.484-2.072 2.548 0 4.453 1.656 4.453 5.228v6.78Z"></path>
+              <path d="M3.372 8.416c-.733 0-1.326-.593-1.326-1.326 0-.733.593-1.326 1.326-1.326.734 0 1.326.593 1.326 1.326 0 .733-.592 1.326-1.326 1.326Zm1.848 12.036h-3.696V9.452h3.696v11.000Z"></path>
+            </svg>
+          </a>
+          <a href="https://youtube.com/@Nikodem.Lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="YouTube">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M21.584 7.186a2.62 2.62 0 0 0-1.854-1.854C18.419 5 12 5 12 5s-6.419 0-7.73.332a2.62 2.62 0 0 0-1.854 1.854C2 8.581 2 12 2 12s0 3.419.332 4.73a2.62 2.62 0 0 0 1.854 1.854C5.581 19 12 19 12 19s6.419 0 7.73-.332a2.62 2.62 0 0 0 1.854-1.854C22 15.419 22 12 22 12s0-3.419-.332-4.73Z"></path>
+              <path d="M9.75 15.75L15.333 12 9.75 8.25v7.5Z"></path>
+            </svg>
+          </a>
         </div>
       </div>
-    </section>
-
-    <section id="contact" class="py-24 px-6">
-      <div class="max-w-3xl mx-auto text-center">
-        <h3 class="text-3xl font-bold mb-6">Let's Connect</h3>
-        <p class="mb-6">Want to collaborate or book a workshop? Reach out below or email me directly.</p>
-        <a
-          href="mailto:your@email.com"
-          class="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 transition"
-        >
-          Contact Me
-        </a>
-      </div>
-    </section>
-
-    <footer class="text-center py-8 text-sm text-gray-500">
+    </div>
+    <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
       © 2025 Nikodem Lewandowski. All rights reserved.
-    </footer>
-  </body>
+    </div>
+  </footer>
+</body>
 </html>
