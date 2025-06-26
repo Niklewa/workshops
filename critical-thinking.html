@@ -150,26 +150,11 @@
   </style>
 </head>
 
-<body class="bg-white text-gray-900 font-sans" x-data="{ open: false, atTop: true }" x-init="window.addEventListener('scroll', () => { atTop = window.scrollY < 50 })">
+<body class="bg-white text-gray-900 font-sans" x-data="{ open: false }">
 
-  <!-- Mobile Top Bar (only on mobile) -->
-  <div class="fixed top-0 left-0 w-full h-14 bg-white shadow z-50 flex items-center justify-between px-4 lg:hidden">
-    <span class="font-bold text-lg text-gray-900">Nikodem Lewandowski</span>
-    <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu"
-      class="mobile-menu-btn focus:outline-none transition-transform duration-300">
-      <svg x-show="!open" class="w-8 h-8" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke="#1f2937" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-      <svg x-show="open" class="w-8 h-8" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke="#1f2937" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
-  </div>
-
-  <!-- Mobile Menu Button (hidden on mobile, visible on desktop) -->
-  <div class="fixed top-4 right-4 z-50 hidden lg:block">
-    <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu"
-      class="mobile-menu-btn focus:outline-none transition-transform duration-300 text-white">
+  <!-- Mobile Menu Button -->
+  <div class="fixed top-4 right-4 z-50">
+    <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu" class="mobile-menu-btn text-gray-800 lg:text-white focus:outline-none transition-transform duration-300">
       <svg x-show="!open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
@@ -181,86 +166,71 @@
 
   <!-- Mobile Menu Overlay -->
   <div class="fixed inset-0 bg-black bg-opacity-50 z-40" x-show="open" @click="open = false" x-transition.opacity></div>
-  <div class="fixed top-0 right-0 h-full w-64 bg-gradient-to-b from-white via-gray-50 to-green-50 border-l-4 border-green-600 shadow-2xl rounded-l-2xl z-50 p-6 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }" x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
+  <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-6 z-50 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }" x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
     <button @click="open = false" aria-label="Close menu" class="absolute top-4 right-4 text-gray-700 hover:text-red-500 focus:outline-none">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
     </button>
     <nav class="space-y-4 text-lg mt-8">
-      <a href="#" @click="open = false" class="block text-xl font-bold text-gray-900 hover:text-green-700 mb-2 transition">Home</a>
-      <a href="#about" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">About</a>
-      <a href="#trainings" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Trainings</a>
-      <a href="#testimonials" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Testimonials</a>
-      <a href="#projects" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Projects</a>
-      <a href="#youtube" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">YouTube</a>
+      <a href="#about" @click="open = false" class="block hover:text-blue-600 font-semibold">About</a>
+      <a href="#trainings" @click="open = false" class="block hover:text-blue-600 font-semibold">Trainings</a>
+      <a href="#testimonials" @click="open = false" class="block hover:text-blue-600 font-semibold">Testimonials</a>
+      <a href="#projects" @click="open = false" class="block hover:text-blue-600 font-semibold">Projects</a>
+      <a href="#youtube" @click="open = false" class="block hover:text-blue-600 font-semibold">YouTube</a>
     </nav>
   </div>
 
   <!-- Hero Section -->
-  <section class="relative min-h-screen flex items-center bg-gray-100 lg:bg-transparent text-white transition-colors duration-500">
-    <!-- Mobile background and overlay -->
-    <div class="absolute inset-0 z-0 lg:hidden">
-      <div class="mobile-hero-bg">
-        <div class="mobile-hero-bg-inner"></div>
-      </div>
-      <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(0,0,0,var(--mobile-hero-overlay-opacity)), rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.08) 100%);"></div>
+  <section class="relative min-h-[50vh] flex items-center justify-center bg-green-900 text-white">
+    <div class="container mx-auto px-6 py-24 text-center">
+      <span class="inline-block mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" class="w-16 h-16 mx-auto"><text x="6" y="25" font-size="24" font-family="serif" font-weight="bold">Φ</text></svg>
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Critical Thinking Workshop</h1>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">Sharpen your reasoning, challenge assumptions, and master the tools of clear thought. This workshop is designed for anyone who wants to think—and communicate—more effectively.</p>
     </div>
-    <!-- Desktop background and overlay -->
-    <div class="absolute inset-0 z-0 hidden lg:block">
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('profilePicLarge1bckdimmedSMALL.jpg');"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent"></div>
+  </section>
+
+  <!-- Workshop Details Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-green-800">What You'll Learn</h2>
+        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-800">
+          <li>How to spot common fallacies and cognitive biases</li>
+          <li>Techniques for rigorous, structured thinking</li>
+          <li>How to ask better questions and challenge assumptions</li>
+          <li>Practical tools from logic and philosophy</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-green-800">Workshop Format</h2>
+        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-800">
+          <li>Interactive sessions (in-person or online)</li>
+          <li>Real-world examples and group exercises</li>
+          <li>Customizable for teams or individuals</li>
+          <li>Duration: 2–6 hours (flexible)</li>
+        </ul>
+      </div>
     </div>
-    <div class="relative z-20 container mx-auto px-6 pt-40 pb-10 lg:py-0 flex flex-col items-center lg:block w-full">
-      <div class="mobile-hero-text">
+  </section>
 
-        <div class="bubble-img-wrapper" style="overflow: hidden; border-radius: 50%; width: 10rem; height: 10rem; margin-bottom: 1.5rem; border: 4px solid white; position: relative;">
-        <img src="meme.jpg" alt="A photo of Nikodem"
-          style="
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 180%;
-            height: 180%;
-            object-fit: cover;
-            transform: translate(-50%, -50%) scale(var(--bubble-img-zoom, 1)) translate(var(--bubble-img-x, 0%), var(--bubble-img-y, 0%));
-            transform-origin: center center;
-            transition: transform 0.3s;
-          " />
-        </div>
-
-
-
-
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 fade-in hero-text-shadow text-white lg:text-white text-left w-full">
-          My goal is to breach<br>
-          <span class="text-green-400 italic text-5xl md:text-6xl font-extrabold hero-text-shadow">the gap</span>
-        </h1>
-        <p class="text-lg md:text-xl mb-8 leading-relaxed fade-in hero-text-shadow text-white lg:text-white text-left w-full">
-          Between theory and practice.<br>
-          Between intuition and reason.<br>
-          Between ideas and action.
-        </p>
-        <div class="flex justify-center w-full fade-in">
-          <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-8 py-3 rounded-lg shadow-lg transition text-lg font-semibold max-w-xs mx-auto text-center">
-            Explore Workshops
-          </a>
-        </div>
+  <!-- Testimonials Section (optional) -->
+  <section class="py-20 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl font-bold mb-8 text-green-800">What People Say</h2>
+      <div class="space-y-8">
+        <blockquote class="italic text-lg text-gray-700">“Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”</blockquote>
+        <blockquote class="italic text-lg text-gray-700">“He makes abstract concepts crystal clear and actually fun.”</blockquote>
       </div>
-      <div class="w-full lg:max-w-2xl text-center lg:text-left flex flex-col items-center lg:items-start lg:mt-32 lg:flex hidden lg:block">
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 fade-in hero-text-shadow text-white lg:text-white">
-          My goal is to breach<br>
-          <span class="text-green-400 italic text-5xl md:text-6xl font-extrabold hero-text-shadow">the gap</span>
-        </h1>
-        <p class="text-lg md:text-xl mb-8 leading-relaxed fade-in hero-text-shadow text-white lg:text-white">
-          Between theory and practice.<br>
-          Between intuition and reason.<br>
-          Between ideas and action.
-        </p>
-        <div class="flex justify-center w-full lg:justify-start fade-in">
-          <a href="#trainings" class="bg-green-700 hover:bg-green-800 text-white px-8 py-3 rounded-lg shadow-lg transition text-lg font-semibold w-full sm:w-auto max-w-xs lg:max-w-none">
-            Explore Workshops
-          </a>
-        </div>
-      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action / Contact Section -->
+  <section class="py-20 px-6 bg-green-900 text-white text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Ready to think better?</h2>
+      <p class="mb-6 text-lg">Contact me to book a workshop for your team or organization, or to ask any questions.</p>
+      <a href="mailto:nikodem@email.com" class="inline-block bg-white text-green-900 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition">Contact Nikodem</a>
     </div>
   </section>
 
@@ -296,7 +266,7 @@
             <p class="mb-4">
               Learn how to recognize fallacies, challenge assumptions, and ask better questions — using tools from logic, philosophy, and cognitive science.
             </p>
-            <a href="critical-thinking.html" class="text-blue-600 hover:underline">Learn more →</a>
+            <a href="#contact" class="text-blue-600 hover:underline">Learn more →</a>
           </div>
         </div>
         <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex items-start gap-4">
