@@ -56,17 +56,54 @@
     }
   }
   .testimonial-card {
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 200px;
+    max-width: 240px;
+    width: 220px;
     flex: 0 0 auto;
-    background: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: rgba(255,255,255,0.92);
+    padding: 1rem 1rem 0.8rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .testimonial-card blockquote {
+    font-size: 1.05rem;
+    color: #374151;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    padding-left: 0.5rem;
+    position: relative;
+  }
+  .testimonial-card blockquote:before {
+    content: "\201C";
+    color: #34d399;
+    font-size: 2.2rem;
+    line-height: 1;
+    position: absolute;
+    left: -0.5rem;
+    top: -0.7rem;
+    font-family: serif;
+    opacity: 0.7;
+  }
+  .testimonial-card footer {
+    font-size: 0.98rem;
+    color: #6b7280;
+    margin-top: 0.2rem;
+    font-weight: 500;
+    padding-left: 0.5rem;
+  }
+  .testimonial-scroller {
+    gap: 2.5rem;
   }
   @media (max-width: 768px) {
     .testimonial-scroller {
-      animation-duration: 90s;
+      animation-duration: 40s;
     }
   }
 
@@ -209,9 +246,8 @@
     <nav class="space-y-4 text-lg mt-8">
       <a href="#" @click="open = false" class="block text-xl font-bold text-gray-900 hover:text-green-700 mb-2 transition">Home</a>
       <a href="#about" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">About</a>
-      <a href="#trainings" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Trainings</a>
+      <a href="#trainings" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Workshops</a>
       <a href="#testimonials" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Testimonials</a>
-      <a href="#projects" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Projects</a>
       <a href="#youtube" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">YouTube</a>
     </nav>
   </div>
@@ -257,7 +293,7 @@
       <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent"></div>
     </div>
     <div class="relative z-20 container mx-auto px-6 pt-40 pb-10 lg:py-0 flex flex-col items-center lg:block w-full">
-      <div class="mobile-hero-text">
+      <div class="mobile-hero-text lg:static lg:pl-24 xl:pl-40 2xl:pl-56 lg:max-w-3xl lg:mx-0 lg:items-start lg:text-left">
 
         <div class="bubble-img-wrapper" style="overflow: hidden; border-radius: 50%; width: 10rem; height: 10rem; margin-bottom: 1.5rem; border: 4px solid white; position: relative;">
         <img src="mePICNICER1.jpg" alt="A photo of Nikodem"
@@ -317,13 +353,12 @@
       <div class="order-2 md:order-1">
         <img src="fotkiCF2/mePoster2.jpg" alt="Nikodem Lewandowski" class="rounded-2xl shadow-xl fade-in" />
       </div>
-      <div class="flex flex-col gap-2 md:gap-3 text-gray-800 fade-in order-1 md:order-2">
+      <div class="flex flex-col gap-3 md:gap-3 text-gray-800 fade-in order-1 md:order-2" style="text-align:justify;font-size:1rem;">
         <h3 class="text-3xl font-extrabold mb-1 text-gray-900">Hi, I'm Nikodem</h3>
-        <p class="italic text-green-700 text-lg mb-2">I always find it a bit cringy to call myself a philosopher—but that's true.</p>
-
+        <p class="italic text-green-700 text-lg mb-2 font-semibold" style="font-size:1.15rem;">I always find it a bit cringy to call myself a philosopher—but that's true.</p>
         <p>I work at the intersection of critical thinking, logic, and data science, currently pursuing a PhD in philosophy.</p>
-        <p>Tackling abstract ideas is my passion—and I can’t help but bring them to people. My mission is to bridge the gap between theory and practice, turning complex concepts into tools that actually work in everyday life.</p>
-        <p>I design and lead workshops that help individuals and teams think more clearly, reason more rigorously, and communicate ideas that stick. My focus is on rationality, structured thinking, and the clear communication of information—skills that are essential in an age of noise and speed.</p>
+        <p>Tackling abstract ideas is my passion—and I can't help but bring them to people. My mission is to bridge the gap between theory and practice, turning complex concepts into tools that actually work in everyday life.</p>
+        <p>I design workshops that help individuals and teams think more clearly, reason more rigorously, and communicate ideas that stick. My focus is on rationality, structured thinking, and clear communication—essential skills in an age of noise and speed.</p>
       </div>
     </div>
   </section>
@@ -331,32 +366,36 @@
   <!-- Workshops Section -->
   <section id="trainings" class="py-24 px-6">
     <div class="max-w-5xl mx-auto">
-      <h3 class="text-3xl font-bold text-center mb-12">Workshops</h3>
-      <div class="grid md:grid-cols-2 gap-10">
-        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex items-start gap-4">
-          <span class="text-green-600 text-3xl flex items-center justify-center w-8 h-8">
-            <!-- Greek Phi icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" class="w-8 h-8"><text x="6" y="25" font-size="24" font-family="serif" font-weight="bold">Φ</text></svg>
-          </span>
+      <h3 class="text-3xl md:text-4xl font-extrabold text-center mb-14 text-gray-900 tracking-tight">Workshops</h3>
+      <div class="grid md:grid-cols-2 gap-6 sm:gap-4">
+        <div class="bg-white p-4 sm:p-5 rounded-xl shadow border border-green-100 flex flex-col gap-3 sm:gap-4 w-full max-w-md mx-auto md:max-w-none mb-6 md:mb-0">
+          <div class="flex items-center mb-1">
+            <span class="text-green-600 text-3xl flex items-center justify-center w-12 h-12 mr-2">
+              <!-- Greek Phi icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="currentColor" class="w-8 h-8"><text x="7" y="32" font-size="28" font-family="serif" font-weight="bold">Φ</text></svg>
+            </span>
+            <h4 class="text-lg font-semibold text-green-900" style="color:#166534;">Critical Thinking Workshop</h4>
+          </div>
           <div>
-            <h4 class="text-xl font-semibold mb-2">Critical Thinking Workshop</h4>
-            <p class="mb-4">
+            <p class="mb-3 text-gray-800 text-base">
               Learn how to recognize fallacies, challenge assumptions, and ask better questions — using tools from logic, philosophy, and cognitive science.
             </p>
-            <a href="critical-thinking.html" class="text-blue-600 hover:underline">Learn more →</a>
+            <a href="critical-thinking.html" class="inline-block bg-green-700 text-white font-semibold px-3 py-2 rounded-md hover:bg-green-800 transition text-sm">Learn more</a>
           </div>
         </div>
-        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex items-start gap-4">
-          <span class="text-blue-600 text-3xl flex items-center justify-center w-8 h-8">
-            <!-- Data Visualization Bar Chart icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8"><rect x="3" y="13" width="4" height="8" rx="1" fill="currentColor"/><rect x="9" y="9" width="4" height="12" rx="1" fill="currentColor"/><rect x="15" y="5" width="4" height="16" rx="1" fill="currentColor"/></svg>
-          </span>
+        <div class="bg-white p-4 sm:p-5 rounded-xl shadow border border-blue-100 flex flex-col gap-3 sm:gap-4 w-full max-w-md mx-auto md:max-w-none">
+          <div class="flex items-center mb-1">
+            <span class="text-blue-600 text-2xl flex items-center justify-center w-10 h-10 mr-2">
+              <!-- Data Visualization Bar Chart icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6"><rect x="3" y="13" width="4" height="8" rx="1" fill="currentColor"/><rect x="9" y="9" width="4" height="12" rx="1" fill="currentColor"/><rect x="15" y="5" width="4" height="16" rx="1" fill="currentColor"/></svg>
+            </span>
+            <h4 class="text-lg font-semibold text-blue-900">Data Visualization Workshop</h4>
+          </div>
           <div>
-            <h4 class="text-xl font-semibold mb-2">Data Visualization Workshop</h4>
-            <p class="mb-4">
+            <p class="mb-3 text-gray-800 text-base">
               Learn to communicate complex information clearly and persuasively — using evidence, design principles, and storytelling.
             </p>
-            <a href="#contact" class="text-blue-600 hover:underline">Learn more →</a>
+            <a href="visualizations.html" class="inline-block bg-blue-700 text-white font-semibold px-3 py-2 rounded-md hover:bg-blue-800 transition text-sm">Learn more</a>
           </div>
         </div>
       </div>
@@ -365,46 +404,52 @@
 
   <!-- Testimonials Section -->
   <section id="testimonials" class="py-24 px-6 bg-gray-50">
-    <div class="max-w-6xl mx-auto text-center">
-      <h3 class="text-3xl font-bold mb-12">What People Say</h3>
+    <div class="max-w-6xl mx-auto">
+      <h3 class="text-3xl md:text-4xl font-extrabold text-center mb-14 text-gray-900 tracking-tight">What People Say</h3>
       <div class="testimonial-wrapper">
         <div class="testimonial-scroller">
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— Workshop Participant</footer>
+          <div class="testimonial-card flex flex-col items-center text-center hover:shadow-lg transition mx-2">
+            <div class="mb-1 flex items-center justify-center w-7 h-7 rounded-full bg-green-50">
+              <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><text x="6" y="22" font-size="14" font-family="serif" font-weight="bold" fill="#22c55e">“</text></svg>
+            </div>
+            <blockquote class="italic text-sm text-gray-800 leading-relaxed mb-1 px-1">“Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”</blockquote>
+            <footer class="font-semibold text-green-800 text-xs">Workshop Participant</footer>
           </div>
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “He makes abstract concepts crystal clear and actually fun.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— University Student</footer>
+          <div class="testimonial-card flex flex-col items-center text-center hover:shadow-lg transition mx-2">
+            <div class="mb-1 flex items-center justify-center w-7 h-7 rounded-full bg-green-50">
+              <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><text x="6" y="22" font-size="14" font-family="serif" font-weight="bold" fill="#22c55e">“</text></svg>
+            </div>
+            <blockquote class="italic text-sm text-gray-800 leading-relaxed mb-1 px-1">“He makes abstract concepts crystal clear and actually fun.”</blockquote>
+            <footer class="font-semibold text-green-800 text-xs">University Student</footer>
           </div>
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “It changed how I structure my thinking — and my team’s.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— Team Leader</footer>
+          <div class="testimonial-card flex flex-col items-center text-center hover:shadow-lg transition mx-2">
+            <div class="mb-1 flex items-center justify-center w-7 h-7 rounded-full bg-green-50">
+              <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><text x="6" y="22" font-size="14" font-family="serif" font-weight="bold" fill="#22c55e">“</text></svg>
+            </div>
+            <blockquote class="italic text-sm text-gray-800 leading-relaxed mb-1 px-1">“It changed how I structure my thinking — and my team’s.”</blockquote>
+            <footer class="font-semibold text-green-800 text-xs">Team Leader</footer>
           </div>
-          <!-- Duplicate testimonials for smooth looping -->
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— Workshop Participant</footer>
+          <!-- Duplicate for smooth looping -->
+          <div class="testimonial-card flex flex-col items-center text-center hover:shadow-lg transition mx-2">
+            <div class="mb-1 flex items-center justify-center w-7 h-7 rounded-full bg-green-50">
+              <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><text x="6" y="22" font-size="14" font-family="serif" font-weight="bold" fill="#22c55e">“</text></svg>
+            </div>
+            <blockquote class="italic text-sm text-gray-800 leading-relaxed mb-1 px-1">“Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”</blockquote>
+            <footer class="font-semibold text-green-800 text-xs">Workshop Participant</footer>
           </div>
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “He makes abstract concepts crystal clear and actually fun.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— University Student</footer>
+          <div class="testimonial-card flex flex-col items-center text-center hover:shadow-lg transition mx-2">
+            <div class="mb-1 flex items-center justify-center w-7 h-7 rounded-full bg-green-50">
+              <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><text x="6" y="22" font-size="14" font-family="serif" font-weight="bold" fill="#22c55e">“</text></svg>
+            </div>
+            <blockquote class="italic text-sm text-gray-800 leading-relaxed mb-1 px-1">“He makes abstract concepts crystal clear and actually fun.”</blockquote>
+            <footer class="font-semibold text-green-800 text-xs">University Student</footer>
           </div>
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “It changed how I structure my thinking — and my team’s.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— Team Leader</footer>
+          <div class="testimonial-card flex flex-col items-center text-center hover:shadow-lg transition mx-2">
+            <div class="mb-1 flex items-center justify-center w-7 h-7 rounded-full bg-green-50">
+              <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><text x="6" y="22" font-size="14" font-family="serif" font-weight="bold" fill="#22c55e">“</text></svg>
+            </div>
+            <blockquote class="italic text-sm text-gray-800 leading-relaxed mb-1 px-1">“It changed how I structure my thinking — and my team’s.”</blockquote>
+            <footer class="font-semibold text-green-800 text-xs">Team Leader</footer>
           </div>
         </div>
       </div>
@@ -412,23 +457,25 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="py-24 px-6">
+  <!-- <section id="projects" class="py-24 px-6">
     <div class="max-w-5xl mx-auto text-center">
       <h3 class="text-3xl font-bold mb-12">Projects & Work</h3>
       <p class="text-lg mb-6">Coming soon: articles, collaborations, and personal projects across philosophy, epistemology, and data science.</p>
     </div>
-  </section>
+  </section> -->
 
   <!-- YouTube Section -->
-  <section id="youtube" class="py-24 px-6 bg-gray-50">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-      <img src="your-youtube-promo.jpg" alt="YouTube Setup" class="rounded-xl shadow-lg" />
-      <div>
-        <h3 class="text-3xl font-bold mb-4">Philosophy for Everyone</h3>
-        <p class="mb-4">
+  <section id="youtube" class="py-24 px-6 bg-white">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
+      <div class="flex-1 flex justify-center items-center">
+        <img src="fotkiCF2/meYT2.png" alt="YouTube Setup" class="rounded-2xl shadow-xl w-full max-w-xs md:max-w-sm" style="background: none; border: none; box-shadow: 0 6px 32px 0 rgba(34,197,94,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.07);" />
+      </div>
+      <div class="flex-1 flex flex-col justify-center h-full" style="background:none; box-shadow:none; padding:0;">
+        <h3 class="text-4xl font-extrabold mb-4" style="color:#166534;">Philosophy for Everyone</h3>
+        <p class="mb-6 text-lg text-gray-800">
           On my YouTube channel, I explore philosophical ideas in a grounded, relatable way — from Plato to probabilistic reasoning. It’s a space to rethink assumptions and spark better questions.
         </p>
-        <a href="https://www.youtube.com/@Nikodem.Lewandowski" target="_blank" class="text-blue-600 hover:underline">Visit my channel →</a>
+        <a href="https://www.youtube.com/@Nikodem.Lewandowski" target="_blank" class="inline-block bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-green-800 transition">Visit my channel →</a>
       </div>
     </div>
   </section>
@@ -453,7 +500,7 @@
         <ul class="space-y-2 w-full text-left" style="text-align:left;">
           <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
           <li><a href="#trainings" class="text-gray-400 hover:text-white transition-colors">Workshops</a></li>
-          <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
+          <li><a href="#testimonials" class="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
         </ul>
       </div>
       <div class="footer-connect flex flex-col items-start" style="align-items: flex-start;">

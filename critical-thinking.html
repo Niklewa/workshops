@@ -191,9 +191,8 @@
     <nav class="space-y-4 text-lg mt-8">
       <a href="index.html" @click="open = false" class="block text-xl font-bold text-gray-900 hover:text-green-700 mb-2 transition">Home</a>
       <a href="index.html#about" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">About</a>
-      <a href="index.html#trainings" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Trainings</a>
+      <a href="index.html#trainings" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Workshops</a>
       <a href="index.html#testimonials" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Testimonials</a>
-      <a href="index.html#projects" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Projects</a>
       <a href="index.html#youtube" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">YouTube</a>
     </nav>
   </div>
@@ -255,47 +254,135 @@
   </section>
 
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-12 px-6">
-    <div class="max-w-6xl mx-auto mb-8">
-      <h4 class="text-2xl font-bold mb-2">Nikodem Lewandowski</h4>
-      <p class="text-gray-400 text-sm">Bridging the gap between theory and practice, intuition and reason, ideas and action.</p>
-    </div>
-    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-8 text-left">
-      <div class="flex flex-col items-start">
-        <ul class="space-y-2">
-          <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
-          <li><a href="#trainings" class="text-gray-400 hover:text-white transition-colors">Workshops</a></li>
-          <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
-        </ul>
-      </div>
-      <div class="hidden md:block"></div>
-      <div class="flex flex-col items-start mt-8 md:mt-0">
-        <h4 class="text-xl font-semibold mb-4">Connect</h4>
-        <div class="flex space-x-6">
-          <a href="mailto:nikodem@email.com" class="text-gray-400 hover:text-white transition-colors" aria-label="Email">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-            </svg>
-          </a>
-          <a href="https://linkedin.com/in/nikodem-lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
-            <svg class="w-5 h-5 md:w-7 md:h-7" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.76 1.37-1.56 2.82-1.56 3.01 0 3.57 1.98 3.57 4.56v4.77z"/>
-            </svg>
-          </a>
-          <a href="https://youtube.com/@Nikodem.Lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="YouTube">
-            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M23.498 6.186a2.997 2.997 0 00-2.112-2.112C19.771 3.5 12 3.5 12 3.5s-7.771 0-9.386.574a2.997 2.997 0 00-2.112 2.112C0 7.8 0 12 0 12s0 4.2.502 5.814a2.997 2.997 0 002.112 2.112C4.229 20.5 12 20.5 12 20.5s7.771 0 9.386-.574a2.997 2.997 0 002.112-2.112C24 16.2 24 12 24 12s0-4.2-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-          </a>
+ <!-- Footer -->
+<footer class="bg-gray-800 text-white py-10 px-4 md:px-8">
+  <div class="max-w-6xl mx-auto mb-8">
+    <div class="footer-grid">
+      <div class="footer-logo-desc flex items-center gap-4 mb-8 lg:mb-0 justify-center sm:justify-center w-full" style="text-align:left;">
+        <span class="inline-flex items-center justify-center" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="8" y="40" font-size="38" font-family="serif" font-weight="bold" fill="white" stroke="white" stroke-width="1">Φ</text>
+          </svg>
+        </span>
+        <div>
+          <h4 class="text-2xl font-bold mb-1">Nikodem Lewandowski</h4>
+          <p class="text-gray-400 text-sm leading-snug max-w-xs">Bridging the gap between theory and practice, intuition and reason, ideas and action.</p>
         </div>
       </div>
+      <div class="footer-links flex flex-col items-start" style="align-items: flex-start;">
+        <h4 class="text-xl font-semibold mb-4 w-full text-left" style="text-align:left;">Shortcuts</h4>
+        <ul class="space-y-2 w-full text-left" style="text-align:left;">
+          <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+          <li><a href="#trainings" class="text-gray-400 hover:text-white transition-colors">Workshops</a></li>
+          <li><a href="#testimonials" class="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
+        </ul>
+      </div>
+      <div class="footer-connect flex flex-col items-start" style="align-items: flex-start;">
+        <h4 class="text-xl font-semibold mb-4">Connect</h4>
+        <ul class="space-y-2">
+          <li><a href="mailto:nikodem@email.com" class="text-gray-400 hover:text-white transition-colors" aria-label="Email">Email</a></li>
+          <li><a href="https://linkedin.com/in/nikodem-lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">LinkedIn</a></li>
+          <li><a href="https://youtube.com/@Nikodem.Lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="YouTube">YouTube</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
-      © 2025 Nikodem Lewandowski. All rights reserved.
-    </div>
-  </footer>
+  </div>
+  <div class="max-w-6xl mx-auto mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+    © 2025 Nikodem Lewandowski. All rights reserved.
+  </div>
+</footer>
+
+<style>
+  /* Footer grid base: 1 column on mobile, but Shortcuts and Connect in a row */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem 2rem;
+  }
+  /* On mobile, Shortcuts and Connect in a row, nicely aligned */
+  @media (max-width: 1023px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr;
+      align-items: start;
+    }
+    .footer-logo-desc {
+      grid-column: 1 / 3;
+    }
+    .footer-links {
+      grid-row: 2;
+      grid-column: 1 / 2;
+      align-items: flex-start !important;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .footer-connect {
+      grid-row: 2;
+      grid-column: 2 / 3;
+      align-items: flex-start !important;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .footer-links h4,
+    .footer-links ul,
+    .footer-connect h4,
+    .footer-connect ul {
+      text-align: left;
+      align-items: flex-start;
+      margin-left: 0;
+    }
+  }
+  /* Logo full width on mobile, centered horizontally but text stays left-aligned */
+  .footer-logo-desc {
+    grid-column: 1 / -1;
+    justify-content: center;
+    width: 100%;
+  }
+  /* On small screens >=640px: two columns */
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer-logo-desc {
+      grid-column: 1 / -1; /* Keep full width first row */
+      justify-content: center;
+    }
+    .footer-links {
+      align-items: center !important;
+      justify-content: center !important;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-links h4,
+    .footer-links ul {
+      text-align: left;
+      align-items: flex-start;
+      margin-left: 0;
+    }
+  }
+  /* On large screens >=1024px: three columns */
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .footer-logo-desc {
+      grid-column: 1 / 2;
+      margin-bottom: 0 !important;
+      justify-content: flex-start;
+    }
+    .footer-links {
+      align-items: center;
+    }
+    .footer-links h4,
+    .footer-links ul {
+      text-align: left;
+      align-items: flex-start;
+      margin-left: 0;
+    }
+  }
+
+  /* No icon styling needed for text links */
+</style>
 
   <style>
     /* Footer: true two-column flex on mobile, grid on desktop */

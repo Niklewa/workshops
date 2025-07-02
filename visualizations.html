@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Visualization Workshop - Nikodem Lewandowski</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Google Fonts for modern typography -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    .fade-in { animation: fadeIn 1s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-text-shadow { text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+    .testimonial-card { min-width: 300px; max-width: 300px; flex: 0 0 auto; background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
+  </style>
+</head>
+<body class="bg-white text-gray-900 font-sans" x-data="{ open: false, scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 40 })">
+  <!-- Mobile Top Bar (only on mobile) -->
+  <div class="fixed top-0 left-0 w-full h-14 bg-white shadow z-50 flex items-center justify-between px-4 lg:hidden">
+    <span class="font-bold text-lg text-gray-900">Nikodem Lewandowski</span>
+    <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu" class="mobile-menu-btn focus:outline-none transition-transform duration-300">
+      <svg x-show="!open" class="w-8 h-8" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke="#1f2937" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg x-show="open" class="w-8 h-8" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke="#1f2937" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <!-- Mobile Menu Button (hidden on mobile, visible on desktop) -->
+  <div class="fixed top-4 right-4 z-50 hidden lg:block">
+    <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu" class="mobile-menu-btn focus:outline-none transition-transform duration-300" :class="scrolled ? 'text-blue-900' : 'text-white'">
+      <svg x-show="!open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg x-show="open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <!-- Mobile Menu Overlay -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 z-40" x-show="open" @click="open = false" x-transition.opacity></div>
+  <div class="fixed top-0 right-0 h-full w-64 bg-gradient-to-b from-white via-gray-50 to-blue-50 border-l-4 border-blue-600 shadow-2xl rounded-l-2xl z-50 p-6 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }" x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
+    <button @click="open = false" aria-label="Close menu" class="absolute top-4 right-4 text-gray-700 hover:text-red-500 focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    <nav class="space-y-4 text-lg mt-8">
+      <a href="index.html" @click="open = false" class="block text-xl font-bold text-gray-900 hover:text-blue-700 mb-2 transition">Home</a>
+      <a href="index.html#about" @click="open = false" class="block hover:text-blue-700 font-semibold px-2 py-1 rounded transition">About</a>
+      <a href="index.html#trainings" @click="open = false" class="block hover:text-blue-700 font-semibold px-2 py-1 rounded transition">Workshops</a>
+      <a href="index.html#testimonials" @click="open = false" class="block hover:text-blue-700 font-semibold px-2 py-1 rounded transition">Testimonials</a>
+      <a href="index.html#youtube" @click="open = false" class="block hover:text-blue-700 font-semibold px-2 py-1 rounded transition">YouTube</a>
+    </nav>
+  </div>
+  <!-- Workshop Description Section -->
+  <section class="relative min-h-[50vh] flex items-center justify-center bg-blue-900 text-white">
+    <div class="container mx-auto px-6 py-24 text-center">
+      <span class="inline-block mb-4">
+        <!-- Bar chart icon for Data Visualization (white for contrast) -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-16 h-16 mx-auto">
+          <rect x="5" y="18" width="5" height="9" rx="1.5" fill="white" />
+          <rect x="13.5" y="12" width="5" height="15" rx="1.5" fill="white" />
+          <rect x="22" y="7" width="5" height="20" rx="1.5" fill="white" />
+        </svg>
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Data Visualization Workshop</h1>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">Learn to communicate complex information clearly and persuasively — using evidence, design principles, and storytelling. This workshop is for anyone who wants to make data meaningful and memorable.</p>
+    </div>
+  </section>
+  <!-- Workshop Details Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-blue-800">What You'll Learn</h2>
+        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-800">
+          <li>Principles of effective data visualization</li>
+          <li>How to choose the right chart for your message</li>
+          <li>Storytelling with data</li>
+          <li>Common mistakes and how to avoid them</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-blue-800">Workshop Format</h2>
+        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-800">
+          <li>Interactive sessions (in-person or online)</li>
+          <li>Hands-on exercises and real-world examples</li>
+          <li>Customizable for teams or individuals</li>
+          <li>Duration: 2–6 hours (flexible)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- Call to Action / Contact Section -->
+  <section class="py-20 px-6 bg-blue-900 text-white text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Ready to visualize better?</h2>
+      <p class="mb-6 text-lg">Contact me to book a workshop for your team or organization, or to ask any questions.</p>
+      <a href="mailto:nikodem@email.com" class="inline-block bg-white text-blue-900 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition">Contact Nikodem</a>
+    </div>
+  </section>
+  <!-- Testimonials Section (optional) -->
+  <section class="py-20 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl font-bold mb-8 text-blue-800">What People Say</h2>
+      <div class="space-y-8">
+        <blockquote class="italic text-lg text-gray-700">“I finally understand how to make my data tell a story.”</blockquote>
+        <blockquote class="italic text-lg text-gray-700">“The workshop was practical, fun, and eye-opening.”</blockquote>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-10 px-4 md:px-8">
+    <div class="max-w-6xl mx-auto mb-8">
+      <div class="footer-grid">
+        <div class="footer-logo-desc flex items-center gap-4 mb-8 lg:mb-0 justify-center sm:justify-center w-full" style="text-align:left;">
+          <span class="inline-flex items-center justify-center" aria-hidden="true">
+            <!-- Phi symbol for footer, matching other pages -->
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="8" y="40" font-size="38" font-family="serif" font-weight="bold" fill="white" stroke="white" stroke-width="1">Φ</text>
+            </svg>
+          </span>
+          <div>
+            <h4 class="text-2xl font-bold mb-1">Nikodem Lewandowski</h4>
+            <p class="text-gray-400 text-sm leading-snug max-w-xs">Bridging the gap between theory and practice, intuition and reason, ideas and action.</p>
+          </div>
+        </div>
+        <div class="footer-links flex flex-col items-start" style="align-items: flex-start;">
+          <h4 class="text-xl font-semibold mb-4 w-full text-left" style="text-align:left;">Shortcuts</h4>
+          <ul class="space-y-2 w-full text-left" style="text-align:left;">
+            <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+            <li><a href="#trainings" class="text-gray-400 hover:text-white transition-colors">Workshops</a></li>
+            <li><a href="#testimonials" class="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
+          </ul>
+        </div>
+        <div class="footer-connect flex flex-col items-start" style="align-items: flex-start;">
+          <h4 class="text-xl font-semibold mb-4">Connect</h4>
+          <ul class="space-y-2">
+            <li><a href="mailto:nikodem@email.com" class="text-gray-400 hover:text-white transition-colors" aria-label="Email">Email</a></li>
+            <li><a href="https://linkedin.com/in/nikodem-lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">LinkedIn</a></li>
+            <li><a href="https://youtube.com/@Nikodem.Lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="YouTube">YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+      © 2025 Nikodem Lewandowski. All rights reserved.
+    </div>
+  </footer>
+  <style>
+    .footer-grid { display: grid; grid-template-columns: 1fr; gap: 2rem 2rem; }
+    @media (max-width: 1023px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; align-items: start; }
+      .footer-logo-desc { grid-column: 1 / 3; }
+      .footer-links { grid-row: 2; grid-column: 1 / 2; align-items: flex-start !important; margin-left: 0; margin-right: 0; }
+      .footer-connect { grid-row: 2; grid-column: 2 / 3; align-items: flex-start !important; margin-left: 0; margin-right: 0; }
+      .footer-links h4, .footer-links ul, .footer-connect h4, .footer-connect ul { text-align: left; align-items: flex-start; margin-left: 0; }
+    }
+    .footer-logo-desc { grid-column: 1 / -1; justify-content: center; width: 100%; }
+    @media (min-width: 640px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-logo-desc { grid-column: 1 / -1; justify-content: center; }
+      .footer-links { align-items: center !important; justify-content: center !important; margin-left: auto; margin-right: auto; }
+      .footer-links h4, .footer-links ul { text-align: left; align-items: flex-start; margin-left: 0; }
+    }
+    @media (min-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .footer-logo-desc { grid-column: 1 / 2; margin-bottom: 0 !important; justify-content: flex-start; }
+      .footer-links { align-items: center; }
+      .footer-links h4, .footer-links ul { text-align: left; align-items: flex-start; margin-left: 0; }
+    }
+  </style>
+</body>
+</html>
