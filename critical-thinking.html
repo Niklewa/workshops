@@ -69,6 +69,8 @@
     }
   }
 
+  
+
   /* --- Mobile Hero Background Controls ---
    * Tweak these variables to adjust the background image:
    * --hero-bg-zoom: 1 = normal, 1.2 = 20% zoom in, etc.
@@ -150,11 +152,27 @@
   </style>
 </head>
 
-<body class="bg-white text-gray-900 font-sans" x-data="{ open: false }">
+<body class="bg-white text-gray-900 font-sans" x-data="{ open: false, scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 40 })">
 
-  <!-- Mobile Menu Button -->
-  <div class="fixed top-4 right-4 z-50">
-    <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu" class="mobile-menu-btn text-gray-800 lg:text-white focus:outline-none transition-transform duration-300">
+  <!-- Mobile Top Bar (only on mobile) -->
+  <div class="fixed top-0 left-0 w-full h-14 bg-white shadow z-50 flex items-center justify-between px-4 lg:hidden">
+    <span class="font-bold text-lg text-gray-900">Nikodem Lewandowski</span>
+    <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu"
+      class="mobile-menu-btn focus:outline-none transition-transform duration-300">
+      <svg x-show="!open" class="w-8 h-8" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke="#1f2937" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg x-show="open" class="w-8 h-8" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke="#1f2937" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Button (hidden on mobile, visible on desktop) -->
+  <div class="fixed top-4 right-4 z-50 hidden lg:block">
+    <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu"
+      class="mobile-menu-btn focus:outline-none transition-transform duration-300"
+      :class="scrolled ? 'text-green-900' : 'text-white'">
       <svg x-show="!open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
@@ -166,20 +184,21 @@
 
   <!-- Mobile Menu Overlay -->
   <div class="fixed inset-0 bg-black bg-opacity-50 z-40" x-show="open" @click="open = false" x-transition.opacity></div>
-  <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-6 z-50 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }" x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
+  <div class="fixed top-0 right-0 h-full w-64 bg-gradient-to-b from-white via-gray-50 to-green-50 border-l-4 border-green-600 shadow-2xl rounded-l-2xl z-50 p-6 transform transition-transform duration-300 ease-in-out" :class="{ 'translate-x-0': open, 'translate-x-full': !open }" x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
     <button @click="open = false" aria-label="Close menu" class="absolute top-4 right-4 text-gray-700 hover:text-red-500 focus:outline-none">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
     </button>
     <nav class="space-y-4 text-lg mt-8">
-      <a href="#about" @click="open = false" class="block hover:text-blue-600 font-semibold">About</a>
-      <a href="#trainings" @click="open = false" class="block hover:text-blue-600 font-semibold">Trainings</a>
-      <a href="#testimonials" @click="open = false" class="block hover:text-blue-600 font-semibold">Testimonials</a>
-      <a href="#projects" @click="open = false" class="block hover:text-blue-600 font-semibold">Projects</a>
-      <a href="#youtube" @click="open = false" class="block hover:text-blue-600 font-semibold">YouTube</a>
+      <a href="index.html" @click="open = false" class="block text-xl font-bold text-gray-900 hover:text-green-700 mb-2 transition">Home</a>
+      <a href="index.html#about" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">About</a>
+      <a href="index.html#trainings" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Trainings</a>
+      <a href="index.html#testimonials" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Testimonials</a>
+      <a href="index.html#projects" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">Projects</a>
+      <a href="index.html#youtube" @click="open = false" class="block hover:text-green-700 font-semibold px-2 py-1 rounded transition">YouTube</a>
     </nav>
   </div>
 
-  <!-- Hero Section -->
+  <!-- Workshop Description Section -->
   <section class="relative min-h-[50vh] flex items-center justify-center bg-green-900 text-white">
     <div class="container mx-auto px-6 py-24 text-center">
       <span class="inline-block mb-4">
@@ -214,7 +233,17 @@
     </div>
   </section>
 
-  <!-- Testimonials Section (optional) -->
+ 
+  <!-- Call to Action / Contact Section -->
+  <section class="py-20 px-6 bg-green-900 text-white text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Ready to think better?</h2>
+      <p class="mb-6 text-lg">Contact me to book a workshop for your team or organization, or to ask any questions.</p>
+      <a href="mailto:nikodem@email.com" class="inline-block bg-white text-green-900 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition">Contact Nikodem</a>
+    </div>
+  </section>
+
+   <!-- Testimonials Section (optional) -->
   <section class="py-20 px-6">
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="text-2xl font-bold mb-8 text-green-800">What People Say</h2>
@@ -225,136 +254,6 @@
     </div>
   </section>
 
-  <!-- Call to Action / Contact Section -->
-  <section class="py-20 px-6 bg-green-900 text-white text-center">
-    <div class="max-w-2xl mx-auto">
-      <h2 class="text-2xl font-bold mb-4">Ready to think better?</h2>
-      <p class="mb-6 text-lg">Contact me to book a workshop for your team or organization, or to ask any questions.</p>
-      <a href="mailto:nikodem@email.com" class="inline-block bg-white text-green-900 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition">Contact Nikodem</a>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-24 px-6 bg-gray-50">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-      <div class="order-2 md:order-1">
-        <img src="fotkiCF2/mePoster.jpg" alt="Nikodem Lewandowski" class="rounded-2xl shadow-xl fade-in" />
-      </div>
-      <div class="flex flex-col gap-2 md:gap-3 text-gray-800 fade-in order-1 md:order-2">
-        <h3 class="text-3xl font-extrabold mb-1 text-gray-900">Hi, I'm Nikodem</h3>
-        <p class="italic text-green-700 text-lg mb-2">I always find it a bit cringy to call myself a philosopher—but it’s the most accurate word for what I do.</p>
-
-        <p>I work at the intersection of critical thinking, logic, and data science, currently pursuing a PhD in philosophy.</p>
-        <p>Tackling abstract ideas is my passion—and I can’t help but bring them to people. My mission is to bridge the gap between theory and practice, turning complex concepts into tools that actually work in everyday life.</p>
-        <p>I design and lead workshops that help individuals and teams think more clearly, reason more rigorously, and communicate ideas that stick. My focus is on rationality, structured thinking, and the clear communication of information—skills that are essential in an age of noise and speed.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Workshops Section -->
-  <section id="trainings" class="py-24 px-6">
-    <div class="max-w-5xl mx-auto">
-      <h3 class="text-3xl font-bold text-center mb-12">Workshops</h3>
-      <div class="grid md:grid-cols-2 gap-10">
-        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex items-start gap-4">
-          <span class="text-green-600 text-3xl flex items-center justify-center w-8 h-8">
-            <!-- Greek Phi icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" class="w-8 h-8"><text x="6" y="25" font-size="24" font-family="serif" font-weight="bold">Φ</text></svg>
-          </span>
-          <div>
-            <h4 class="text-xl font-semibold mb-2">Critical Thinking Workshop</h4>
-            <p class="mb-4">
-              Learn how to recognize fallacies, challenge assumptions, and ask better questions — using tools from logic, philosophy, and cognitive science.
-            </p>
-            <a href="#contact" class="text-blue-600 hover:underline">Learn more →</a>
-          </div>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex items-start gap-4">
-          <span class="text-blue-600 text-3xl flex items-center justify-center w-8 h-8">
-            <!-- Data Visualization Bar Chart icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8"><rect x="3" y="13" width="4" height="8" rx="1" fill="currentColor"/><rect x="9" y="9" width="4" height="12" rx="1" fill="currentColor"/><rect x="15" y="5" width="4" height="16" rx="1" fill="currentColor"/></svg>
-          </span>
-          <div>
-            <h4 class="text-xl font-semibold mb-2">Data Visualization Workshop</h4>
-            <p class="mb-4">
-              Learn to communicate complex information clearly and persuasively — using evidence, design principles, and storytelling.
-            </p>
-            <a href="#contact" class="text-blue-600 hover:underline">Learn more →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="py-24 px-6 bg-gray-50">
-    <div class="max-w-6xl mx-auto text-center">
-      <h3 class="text-3xl font-bold mb-12">What People Say</h3>
-      <div class="testimonial-wrapper">
-        <div class="testimonial-scroller">
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— Workshop Participant</footer>
-          </div>
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “He makes abstract concepts crystal clear and actually fun.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— University Student</footer>
-          </div>
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “It changed how I structure my thinking — and my team’s.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— Team Leader</footer>
-          </div>
-          <!-- Duplicate testimonials for smooth looping -->
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— Workshop Participant</footer>
-          </div>
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “He makes abstract concepts crystal clear and actually fun.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— University Student</footer>
-          </div>
-          <div class="testimonial-card">
-            <blockquote class="italic text-lg text-gray-800">
-              “It changed how I structure my thinking — and my team’s.”
-            </blockquote>
-            <footer class="mt-4 font-semibold text-gray-600">— Team Leader</footer>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="py-24 px-6">
-    <div class="max-w-5xl mx-auto text-center">
-      <h3 class="text-3xl font-bold mb-12">Projects & Work</h3>
-      <p class="text-lg mb-6">Coming soon: articles, collaborations, and personal projects across philosophy, epistemology, and data science.</p>
-    </div>
-  </section>
-
-  <!-- YouTube Section -->
-  <section id="youtube" class="py-24 px-6 bg-gray-50">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-      <img src="your-youtube-promo.jpg" alt="YouTube Setup" class="rounded-xl shadow-lg" />
-      <div>
-        <h3 class="text-3xl font-bold mb-4">Philosophy for Everyone</h3>
-        <p class="mb-4">
-          On my YouTube channel, I explore philosophical ideas in a grounded, relatable way — from Plato to probabilistic reasoning. It’s a space to rethink assumptions and spark better questions.
-        </p>
-        <a href="https://www.youtube.com/@Nikodem.Lewandowski" target="_blank" class="text-blue-600 hover:underline">Visit my channel →</a>
-      </div>
-    </div>
-  </section>
 
   <!-- Footer -->
   <footer class="bg-gray-800 text-white py-12 px-6">

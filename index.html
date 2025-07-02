@@ -91,15 +91,20 @@
   .mobile-hero-bg-inner {
     position: absolute;
     inset: 0;
-    background-image: url('fotkiCF2/meClassroom1.jpg');
     background-size: cover;
     background-position: var(--hero-bg-x) var(--hero-bg-y);
     background-repeat: no-repeat;
     width: 100%;
     height: 100%;
     transform: scale(var(--hero-bg-zoom));
-    transition: transform 0.3s, background-position 0.3s;
-    will-change: transform, background-position;
+    transition: opacity 1.5s, transform 0.3s, background-position 0.3s;
+    will-change: opacity, transform, background-position;
+    opacity: 0;
+    z-index: 1;
+  }
+  .mobile-hero-bg-inner.active {
+    opacity: 1;
+    z-index: 2;
   }
 
   /* --- Mobile Hero Overlay Darkness Control ---
@@ -110,9 +115,9 @@
   
   :root {
     --mobile-hero-overlay-opacity: 0.5;
-    --bubble-img-x: -6%;  /* move left/right */
-    --bubble-img-y: 26%;  /* move up/down */
-    --bubble-img-zoom: 1.3;
+    --bubble-img-x: 0%;  /* move left/right */
+    --bubble-img-y: 12%;  /* move up/down */
+    --bubble-img-zoom: 0.98;
   }
 
   /* --- Mobile Hero Text Block Controls (Mobile only) ---
@@ -144,6 +149,21 @@
 
   @media (max-width: 1023px) {
     .mobile-menu-btn svg {
+      color: #fff !important;
+      stroke: #fff !important;
+    }
+  }
+  @media (min-width: 1024px) {
+    .mobile-menu-btn svg {
+      color: #fff !important;
+      stroke: #fff !important;
+      transition: color 0.3s, stroke 0.3s;
+    }
+    body.scrolled .mobile-menu-btn svg {
+      color: #1f2937 !important;
+      stroke: #1f2937 !important;
+    }
+    .lg\:bg-transparent .mobile-menu-btn svg {
       color: #fff !important;
       stroke: #fff !important;
     }
@@ -200,8 +220,34 @@
   <section class="relative min-h-screen flex items-center bg-gray-100 lg:bg-transparent text-white transition-colors duration-500">
     <!-- Mobile background and overlay -->
     <div class="absolute inset-0 z-0 lg:hidden">
-      <div class="mobile-hero-bg">
-        <div class="mobile-hero-bg-inner"></div>
+      <div class="mobile-hero-bg" x-data="{
+        images: [
+          { url: 'fotkiCF2/meClassroom1.jpg', x: '70%', y: '0%', zoom: 1 },
+          { url: 'fotkiCF2/meClassroom2.jpg', x: '50%', y: '10%', zoom: 1.1 },
+          { url: 'fotkiCF2/mePiano2.jpg', x: '60%', y: '0%', zoom: 1.15 }
+        ],
+        current: 0,
+        interval: null,
+        next() {
+          this.current = (this.current + 1) % this.images.length;
+        },
+        start() {
+          this.interval = setInterval(() => this.next(), 7000);
+        },
+        stop() {
+          clearInterval(this.interval);
+        }
+      }" x-init="start()" @mouseenter="stop()" @mouseleave="start()">
+        <template x-for="(img, i) in images" :key="i">
+          <div class="mobile-hero-bg-inner" :class="{ 'active': current === i }"
+            :style="
+              `background-image: url('${img.url}'); \
+              background-position: ${img.x} ${img.y}; \
+              transform: scale(${img.zoom}); \
+              opacity: ${current === i ? 1 : 0};`
+            ">
+          </div>
+        </template>
       </div>
       <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(0,0,0,var(--mobile-hero-overlay-opacity)), rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.08) 100%);"></div>
     </div>
@@ -214,7 +260,7 @@
       <div class="mobile-hero-text">
 
         <div class="bubble-img-wrapper" style="overflow: hidden; border-radius: 50%; width: 10rem; height: 10rem; margin-bottom: 1.5rem; border: 4px solid white; position: relative;">
-        <img src="meme.jpg" alt="A photo of Nikodem"
+        <img src="mePICNICER1.jpg" alt="A photo of Nikodem"
           style="
             position: absolute;
             top: 50%;
@@ -231,9 +277,9 @@
 
 
 
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 fade-in hero-text-shadow text-white lg:text-white text-left w-full">
-          My goal is to breach<br>
-          <span class="text-green-400 italic text-5xl md:text-6xl font-extrabold hero-text-shadow">the gap</span>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 fade-in hero-text-shadow text-white lg:text-white text-left w-full" style="max-width:95vw;padding-left:min(0.5rem,env(safe-area-inset-left));padding-right:0.5rem;">
+          <span style="display:block;white-space:nowrap;overflow-wrap:normal;text-align:left;width:100%;font-size:clamp(2rem,7vw,2.9rem);margin-left:auto;margin-right:auto;">My goal is to breach</span>
+          <span class="text-green-400 italic font-extrabold hero-text-shadow" style="display:block;text-align:left;font-size:clamp(2.5rem,9vw,3.6rem);">the gap</span>
         </h1>
         <p class="text-lg md:text-xl mb-8 leading-relaxed fade-in hero-text-shadow text-white lg:text-white text-left w-full">
           Between theory and practice.<br>
@@ -248,7 +294,7 @@
       </div>
       <div class="w-full lg:max-w-2xl text-center lg:text-left flex flex-col items-center lg:items-start lg:mt-32 lg:flex hidden lg:block">
         <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 fade-in hero-text-shadow text-white lg:text-white">
-          My goal is to breach<br>
+          My goal is <span class="whitespace-nowrap">to breach</span><br>
           <span class="text-green-400 italic text-5xl md:text-6xl font-extrabold hero-text-shadow">the gap</span>
         </h1>
         <p class="text-lg md:text-xl mb-8 leading-relaxed fade-in hero-text-shadow text-white lg:text-white">
@@ -269,7 +315,7 @@
   <section id="about" class="py-24 px-6 bg-gray-50">
     <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
       <div class="order-2 md:order-1">
-        <img src="fotkiCF2/mePoster.jpg" alt="Nikodem Lewandowski" class="rounded-2xl shadow-xl fade-in" />
+        <img src="fotkiCF2/mePoster2.jpg" alt="Nikodem Lewandowski" class="rounded-2xl shadow-xl fade-in" />
       </div>
       <div class="flex flex-col gap-2 md:gap-3 text-gray-800 fade-in order-1 md:order-2">
         <h3 class="text-3xl font-extrabold mb-1 text-gray-900">Hi, I'm Nikodem</h3>
@@ -387,83 +433,150 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-12 px-6">
-    <div class="max-w-6xl mx-auto mb-8 flex items-center gap-4">
-      <!-- Large white phi icon -->
-      <span class="inline-flex items-center justify-center" aria-hidden="true">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="8" y="40" font-size="38" font-family="serif" font-weight="bold" fill="white" stroke="white" stroke-width="1">Φ</text>
-        </svg>
-      </span>
-      <div>
-        <h4 class="text-2xl font-bold mb-2">Nikodem Lewandowski</h4>
-        <p class="text-gray-400 text-sm">Bridging the gap between theory and practice, intuition and reason, ideas and action.</p>
+ <!-- Footer -->
+<footer class="bg-gray-800 text-white py-10 px-4 md:px-8">
+  <div class="max-w-6xl mx-auto mb-8">
+    <div class="footer-grid">
+      <div class="footer-logo-desc flex items-center gap-4 mb-8 lg:mb-0 justify-center sm:justify-center w-full" style="text-align:left;">
+        <span class="inline-flex items-center justify-center" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="8" y="40" font-size="38" font-family="serif" font-weight="bold" fill="white" stroke="white" stroke-width="1">Φ</text>
+          </svg>
+        </span>
+        <div>
+          <h4 class="text-2xl font-bold mb-1">Nikodem Lewandowski</h4>
+          <p class="text-gray-400 text-sm leading-snug max-w-xs">Bridging the gap between theory and practice, intuition and reason, ideas and action.</p>
+        </div>
       </div>
-    </div>
-    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-8 text-left">
-      <div class="flex flex-col items-start">
-        <ul class="space-y-2">
+      <div class="footer-links flex flex-col items-start" style="align-items: flex-start;">
+        <h4 class="text-xl font-semibold mb-4 w-full text-left" style="text-align:left;">Shortcuts</h4>
+        <ul class="space-y-2 w-full text-left" style="text-align:left;">
           <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
           <li><a href="#trainings" class="text-gray-400 hover:text-white transition-colors">Workshops</a></li>
           <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
         </ul>
       </div>
-      <div class="hidden md:block"></div>
-      <div class="flex flex-col items-start mt-8 md:mt-0">
+      <div class="footer-connect flex flex-col items-start" style="align-items: flex-start;">
         <h4 class="text-xl font-semibold mb-4">Connect</h4>
-        <div class="flex space-x-6">
-          <a href="mailto:nikodem@email.com" class="text-gray-400 hover:text-white transition-colors" aria-label="Email">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-            </svg>
-          </a>
-          <a href="https://linkedin.com/in/nikodem-lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
-            <svg class="w-5 h-5 md:w-7 md:h-7" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.76 1.37-1.56 2.82-1.56 3.01 0 3.57 1.98 3.57 4.56v4.77z"/>
-            </svg>
-          </a>
-          <a href="https://youtube.com/@Nikodem.Lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="YouTube">
-            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M23.498 6.186a2.997 2.997 0 00-2.112-2.112C19.771 3.5 12 3.5 12 3.5s-7.771 0-9.386.574a2.997 2.997 0 00-2.112 2.112C0 7.8 0 12 0 12s0 4.2.502 5.814a2.997 2.997 0 002.112 2.112C4.229 20.5 12 20.5 12 20.5s7.771 0 9.386-.574a2.997 2.997 0 002.112-2.112C24 16.2 24 12 24 12s0-4.2-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-          </a>
-        </div>
+        <ul class="space-y-2">
+          <li><a href="mailto:nikodem@email.com" class="text-gray-400 hover:text-white transition-colors" aria-label="Email">Email</a></li>
+          <li><a href="https://linkedin.com/in/nikodem-lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">LinkedIn</a></li>
+          <li><a href="https://youtube.com/@Nikodem.Lewandowski" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="YouTube">YouTube</a></li>
+        </ul>
       </div>
     </div>
-    <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
-      © 2025 Nikodem Lewandowski. All rights reserved.
-    </div>
-  </footer>
+  </div>
+  <div class="max-w-6xl mx-auto mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+    © 2025 Nikodem Lewandowski. All rights reserved.
+  </div>
+</footer>
 
-  <style>
-    /* Footer: true two-column flex on mobile, grid on desktop */
-    .footer-mobile-flex {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: flex-start;
+<style>
+  /* Footer grid base: 1 column on mobile, but Shortcuts and Connect in a row */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem 2rem;
+  }
+  /* On mobile, Shortcuts and Connect in a row, nicely aligned */
+  @media (max-width: 1023px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr;
+      align-items: start;
     }
-    .footer-mobile-flex > div {
-      flex: 1 1 0%;
-      min-width: 0;
-      margin-right: 2rem;
+    .footer-logo-desc {
+      grid-column: 1 / 3;
     }
-    .footer-mobile-flex > div:last-child {
+    .footer-links {
+      grid-row: 2;
+      grid-column: 1 / 2;
+      align-items: flex-start !important;
+      margin-left: 0;
       margin-right: 0;
     }
-    @media (min-width: 768px) {
-      .footer-mobile-flex {
-        display: grid !important;
-        flex-direction: unset !important;
-        align-items: unset !important;
-        justify-content: unset !important;
-      }
-      .footer-mobile-flex > div {
-        margin-right: 0;
+    .footer-connect {
+      grid-row: 2;
+      grid-column: 2 / 3;
+      align-items: flex-start !important;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .footer-links h4,
+    .footer-links ul,
+    .footer-connect h4,
+    .footer-connect ul {
+      text-align: left;
+      align-items: flex-start;
+      margin-left: 0;
+    }
+  }
+  /* Logo full width on mobile, centered horizontally but text stays left-aligned */
+  .footer-logo-desc {
+    grid-column: 1 / -1;
+    justify-content: center;
+    width: 100%;
+  }
+  /* On small screens >=640px: two columns */
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer-logo-desc {
+      grid-column: 1 / -1; /* Keep full width first row */
+      justify-content: center;
+    }
+    .footer-links {
+      align-items: center !important;
+      justify-content: center !important;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-links h4,
+    .footer-links ul {
+      text-align: left;
+      align-items: flex-start;
+      margin-left: 0;
+    }
+  }
+  /* On large screens >=1024px: three columns */
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .footer-logo-desc {
+      grid-column: 1 / 2;
+      margin-bottom: 0 !important;
+      justify-content: flex-start;
+    }
+    .footer-links {
+      align-items: center;
+    }
+    .footer-links h4,
+    .footer-links ul {
+      text-align: left;
+      align-items: flex-start;
+      margin-left: 0;
+    }
+  }
+
+  /* No icon styling needed for text links */
+</style>
+
+
+  <script>
+  // Add or remove 'scrolled' class to body based on scroll position (for desktop)
+  document.addEventListener('DOMContentLoaded', function() {
+    function onScroll() {
+      if (window.scrollY > 40) {
+        document.body.classList.add('scrolled');
+      } else {
+        document.body.classList.remove('scrolled');
       }
     }
-  </style>
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+  });
+  </script>
 </body>
 </html>
