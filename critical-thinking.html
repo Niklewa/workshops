@@ -154,7 +154,6 @@
 
 <body class="bg-white text-gray-900 font-sans" x-data="{ open: false, scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 40 })">
 
-  <!-- Mobile Top Bar (only on mobile) -->
   <div class="fixed top-0 left-0 w-full h-14 bg-white shadow z-50 flex items-center justify-between px-4 lg:hidden">
     <span class="font-bold text-lg text-gray-900">Nikodem Lewandowski</span>
     <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu"
@@ -197,59 +196,157 @@
     </nav>
   </div>
 
-  <!-- Workshop Description Section -->
-  <section class="relative min-h-[50vh] flex items-center justify-center bg-green-900 text-white">
-    <div class="container mx-auto px-6 py-24 text-center">
-      <span class="inline-block mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" class="w-16 h-16 mx-auto"><text x="6" y="25" font-size="24" font-family="serif" font-weight="bold">Φ</text></svg>
+  <!-- HERO SECTION -->
+  <section class="relative bg-green-800 py-24 px-6 flex flex-col items-center justify-center text-center border-b border-gray-100">
+    <span class="inline-flex items-center justify-center mb-8 mt-2" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="white" class="w-16 h-16 mx-auto"><text x="6" y="25" font-size="24" font-family="serif" font-weight="bold">Φ</text></svg>
+    </span>
+    <h1 class="text-4xl md:text-5xl font-semibold mb-8 text-white leading-tight tracking-tight" style="letter-spacing:-0.01em;">Better Thinking.<br><span style="white-space:nowrap">Better Business.</span></h1>
+    <div class="w-full flex flex-col items-center mb-10">
+      <span class="block text-xl md:text-2xl text-gray-100 font-light px-2 py-1 w-full md:w-auto text-center tracking-wide leading-snug mb-4" style="max-width: 32rem;">
+        <span class="italic text-white text-xl md:text-2xl font-normal">Critical thinking is not just a skill — it's your team’s competitive edge.</span>
       </span>
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Critical Thinking Workshop</h1>
-      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">Sharpen your reasoning, challenge assumptions, and master the tools of clear thought. This workshop is designed for anyone who wants to think—and communicate—more effectively.</p>
     </div>
+    <a href="mailto:nikodem@email.com" class="inline-block bg-white hover:bg-gray-100 text-green-800 font-bold px-10 py-4 rounded-lg shadow-lg text-lg transition mt-2">Book a Free Strategy Call</a>
   </section>
 
-  <!-- Workshop Details Section -->
+  <!-- PROBLEM / SOLUTION SECTION -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
+      <div class="flex flex-col items-center md:items-start">
+        <img src="fotkiCF2/meClassroom2.jpg" alt="Frustrated team" class="rounded-2xl w-full max-w-md md:max-w-lg shadow-lg mb-8 md:mb-0">
+      </div>
+      <div class="px-1 md:px-0 w-full">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-green-800 tracking-tight leading-tight mb-5 md:mb-6 font-sans">
+          Every Day Without Better Thinking <span class="font-extrabold italic text-green-400 underline underline-offset-4">Costs You Money</span>
+        </h2>
+        <p class="text-base sm:text-lg md:text-xl text-gray-700 mb-6 md:mb-7 leading-relaxed">Your team makes hundreds of decisions every week—under pressure, with incomplete data, and hidden biases.<br>Each poor decision wastes time, increases rework, and risks your billable outcomes.</p>
+        <div class="bg-white border-l-4 border-green-700 rounded-lg shadow-sm px-5 py-4 mt-2 w-full max-w-xl">
+          <div class="font-bold text-green-800 text-lg md:text-xl">How can we improve it?</div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <hr class="my-14 md:my-20 border-gray-200">
+  </section>
+
+  <!-- WHAT I OFFER + HOW IT WORKS SECTION (merged, light gray bg) -->
   <section class="py-20 px-6 bg-gray-50">
-    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-start">
-      <div>
-        <h2 class="text-2xl font-bold mb-4 text-green-800">What You'll Learn</h2>
-        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-800">
-          <li>How to spot common fallacies and cognitive biases</li>
-          <li>Techniques for rigorous, structured thinking</li>
-          <li>How to ask better questions and challenge assumptions</li>
-          <li>Practical tools from logic and philosophy</li>
-        </ul>
+    <div class="max-w-5xl mx-auto">
+      <div class="flex justify-center mb-8">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-sans text-green-800 tracking-tight leading-tight">The Solution Tailored for Your Team</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start md:items-stretch">
+        <div class="flex flex-col justify-center h-full">
+          <div class="bg-white border-l-4 border-green-700 rounded-lg shadow-sm px-5 py-3 mb-2 w-full max-w-xl">
+            <span class="font-bold text-lg md:text-xl text-green-500">Customized Critical Thinking Workshops</span>
+            <span class="block text-gray-700 text-base md:text-lg mt-1">for your team's real-world challenges and business goals</span>
+          </div>
+          <ul class="list-disc pl-7 md:pl-8 space-y-3 text-base sm:text-lg md:text-xl text-gray-700 mt-2">
+            <li>Available in <span class="font-bold">Polish or English</span></li>
+            <li>Format: <span class="font-bold">on-site or online</span>, 3-hour sessions to full-day intensives</li>
+            <li>Built on the <span class="font-bold">Experiential Learning Cycle (Kolb)</span> — your team learns by doing, reflecting, and applying</li>
+            <li>Tailored to <span class="font-bold">your industry, decision-making culture, and business context</span></li>
+          </ul>
+        </div>
+        <!-- Right: Method Steps as Timeline -->
+        <div class="flex flex-col justify-center h-full">
+          <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 flex flex-col justify-center h-full border-t-4 border-green-700">
+            <div class="text-base sm:text-lg md:text-xl font-bold text-green-700 mb-5 text-left tracking-tight">My method in 4 steps:</div>
+            <ol class="relative border-l-4 border-green-100 pl-7 space-y-6">
+              <li class="group flex items-start">
+                <span class="absolute -left-4 flex items-center justify-center w-7 h-7 bg-green-700 text-white rounded-full font-bold text-lg shadow-md group-hover:scale-110 transition-transform">1</span>
+                <div>
+                  <span class="font-bold text-green-700">Experience:</span> Tackle real business challenges from your world.
+                </div>
+              </li>
+              <li class="group flex items-start">
+                <span class="absolute -left-4 flex items-center justify-center w-7 h-7 bg-green-700 text-white rounded-full font-bold text-lg shadow-md group-hover:scale-110 transition-transform">2</span>
+                <div>
+                  <span class="font-bold text-green-700">Reflect:</span> Spot thinking habits and hidden traps as a team.
+                </div>
+              </li>
+              <li class="group flex items-start">
+                <span class="absolute -left-4 flex items-center justify-center w-7 h-7 bg-green-700 text-white rounded-full font-bold text-lg shadow-md group-hover:scale-110 transition-transform">3</span>
+                <div>
+                  <span class="font-bold text-green-700">Learn:</span> Get practical, science-backed tools you use right away.
+                </div>
+              </li>
+              <li class="group flex items-start">
+                <span class="absolute -left-4 flex items-center justify-center w-7 h-7 bg-green-700 text-white rounded-full font-bold text-lg shadow-md group-hover:scale-110 transition-transform">4</span>
+                <div>
+                  <span class="font-bold text-green-700">Apply:</span> Practice and embed new habits in your real work.
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-12 text-green-700 font-semibold text-base sm:text-lg md:text-xl tracking-tight">No lectures. Just active learning with real impact.</div>
+    </div>
+  </section>
+
+  <!-- BUSINESS IMPACT SECTION (flattened, two-column text) -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold font-sans mb-7 md:mb-8 text-green-800 flex items-center gap-2 tracking-tight leading-tight">Tangible Business Impact</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 text-base sm:text-lg md:text-xl text-gray-700">
+        <div class="bg-white border-l-4 border-green-700 rounded-xl shadow-sm p-5 md:p-6 flex flex-col justify-center min-h-[80px]">
+          <div class="font-bold text-green-800 mb-1 md:mb-2 text-lg md:text-xl">Sharper Decisions, Faster</div>
+          <div>Make better choices under pressure.</div>
+        </div>
+        <div class="bg-white border-l-4 border-green-700 rounded-xl shadow-sm p-5 md:p-6 flex flex-col justify-center min-h-[80px]">
+          <div class="font-bold text-green-800 mb-1 md:mb-2 text-lg md:text-xl">Reduced Risk of Costly Mistakes</div>
+          <div>Spot and prevent thinking traps before they cause damage.</div>
+        </div>
+        <div class="bg-white border-l-4 border-green-700 rounded-xl shadow-sm p-5 md:p-6 flex flex-col justify-center min-h-[80px]">
+          <div class="font-bold text-green-800 mb-1 md:mb-2 text-lg md:text-xl">Stronger Collaboration</div>
+          <div>Shared frameworks align teams around smarter problem-solving.</div>
+        </div>
+        <div class="bg-white border-l-4 border-green-700 rounded-xl shadow-sm p-5 md:p-6 flex flex-col justify-center min-h-[80px]">
+          <div class="font-bold text-green-800 mb-1 md:mb-2 text-lg md:text-xl">Improved Business Outcomes</div>
+          <div>Smarter work, fewer errors, better results on what matters most.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ...existing code... (removed What Your Team Will Master section as per new instructions) ... -->
+
+  <!-- WHY WORK WITH ME SECTION (no shadow, no border) -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div class="flex justify-center md:justify-start">
+        <img src="profilePicLarge1.png" alt="Nikodem Lewandowski" class="rounded-2xl w-full max-w-md md:max-w-lg shadow-lg">
       </div>
       <div>
-        <h2 class="text-2xl font-bold mb-4 text-green-800">Workshop Format</h2>
-        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-800">
-          <li>Interactive sessions (in-person or online)</li>
-          <li>Real-world examples and group exercises</li>
-          <li>Customizable for teams or individuals</li>
-          <li>Duration: 2–6 hours (flexible)</li>
+        <h2 class="text-3xl md:text-4xl font-bold font-sans mb-6 text-green-800 flex items-center gap-2">Why Work With Me?</h2>
+        <ul class="space-y-3 text-lg">
+          <li><span class="font-bold">Academic Expertise:</span> PhD candidate specializing in rational decision-making, cognitive science, and critical thinking</li>
+          <li><span class="font-bold">Workshop Facilitator:</span> Skilled in teaching critical thinking, logic, and data science with a focus on practical, real-world application</li>
+          <li><span class="font-bold">Business Impact:</span> Empowering teams to adopt sustainable critical thinking habits that enhance decision-making and drive measurable results</li>
         </ul>
       </div>
     </div>
   </section>
 
- 
-  <!-- Call to Action / Contact Section -->
-  <section class="py-20 px-6 bg-green-900 text-white text-center">
-    <div class="max-w-2xl mx-auto">
-      <h2 class="text-2xl font-bold mb-4">Ready to think better?</h2>
-      <p class="mb-6 text-lg">Contact me to book a workshop for your team or organization, or to ask any questions.</p>
-      <a href="mailto:nikodem@email.com" class="inline-block bg-white text-green-900 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition">Contact Nikodem</a>
+  <!-- TESTIMONIALS SECTION (keep as is, clean) -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold font-sans mb-8 text-green-800 flex items-center gap-2">💬 What Others Say</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-gray-50 p-8 rounded-xl shadow text-lg italic flex items-center">“Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”</div>
+        <div class="bg-gray-50 p-8 rounded-xl shadow text-lg italic flex items-center">“Nikodem makes abstract concepts crystal clear—and actually fun.”</div>
+      </div>
     </div>
   </section>
 
-   <!-- Testimonials Section (optional) -->
-  <section class="py-20 px-6">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-2xl font-bold mb-8 text-green-800">What People Say</h2>
-      <div class="space-y-8">
-        <blockquote class="italic text-lg text-gray-700">“Inspiring, sharp, and engaging. The best workshop I’ve attended in years.”</blockquote>
-        <blockquote class="italic text-lg text-gray-700">“He makes abstract concepts crystal clear and actually fun.”</blockquote>
-      </div>
+  <!-- FINAL CTA SECTION -->
+  <section class="py-20 px-6 bg-white text-center border-t border-gray-100">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-extrabold font-sans mb-6 text-green-800">Ready to Sharpen Your Team’s Thinking?</h2>
+      <p class="text-2xl mb-8 text-gray-700">Let’s build a team that makes smarter, faster, and better decisions—one thinking habit at a time.</p>
+      <a href="mailto:nikodem@email.com" class="inline-block bg-green-700 hover:bg-green-800 text-white font-bold px-10 py-4 rounded-lg shadow-lg text-lg transition">Book a Free Consultation</a>
     </div>
   </section>
 
